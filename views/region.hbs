@@ -1,0 +1,185 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <h4 class="text-center text-primary my-4">Mahalla Qo'shish</h4>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create">
+                    Qo'shish
+                </button>
+                <!-- Modal -->
+                <div class="modal fade text-start" id="modal-create" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">
+                                    Mahalla Qo'shish</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form class="col-12 m-auto" class="forms-sample" action="/region/create/" method="post">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Mahalla nomi</label>
+                                        <input required type="text" class="form-control" placeholder="Mahalla kirit"
+                                            name="title" value="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="selectpicker col-12" name="nurses[]" multiple
+                                            data-live-search="true">
+                                            {{#each nurses}}
+                                            <option value="{{_id}}">{{surname}} {{firstname}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Qaytish</button>
+                                    <button type="submit" class="btn btn-primary">Qo'shish</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card">
+
+
+            <div class="col-12">
+                <div class="card-body">
+                    <h5 class="card-title">Mahallalar ro'yhati</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Mahalla nomi</th>
+                                    <th scope="col">Hamshiralar</th>
+                                    <th scope="col">Royhatga olingan sana</th>
+                                    <th scope="col" class="text-center">O'zgartirish</th>
+                                    <th scope="col" class="text-center">O'chirish</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#if regions}}
+                                {{#each regions}}
+                                <tr>
+                                    <th scope="row">{{@index}}</th>
+                                    <td>{{title}}</td>
+                                    <td>
+                                        <ol>
+                                            {{#each nurses}}
+                                            <li><a href="/nurse/#{{_id}}" class="text-primary">{{surname}}
+                                                    {{firstname}}</a> - {{role}}</li>
+                                            {{/each}}
+                                        </ol>
+                                    </td>
+                                    <td>{{created_at}}</td>
+                                    <td class="text-center">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modal-update-{{_id}}">
+                                            <i class="ri-edit-box-fill"></i>
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade text-start" id="modal-update-{{_id}}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">
+                                                            Mahalla o'zgartirish</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <form class="col-12 m-auto" class="forms-sample"
+                                                        action="/region/update/{{_id}}" method="post">
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Mahalla nomi</label>
+                                                                <input required type="text" class="form-control"
+                                                                    placeholder="Mahalla kirit" name="title"
+                                                                    value="{{title}}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <select class="selectpicker col-12" name="nurses[]"
+                                                                    multiple data-live-search="true">
+                                                                    {{#each nurses}}
+                                                                    <option selected value="{{_id}}">{{surname}}
+                                                                        {{firstname}}</option>
+                                                                    {{/each}}
+                                                                    {{#each ../nurses}}
+                                                                    <option value="{{_id}}">{{surname}}
+                                                                        {{firstname}}</option>
+                                                                    {{/each}}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Qaytish</button>
+                                                            <button type="submit"
+                                                                class="btn btn-primary">Qo'shish</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modal-delete">
+                                            <i class="ri-delete-bin-fill"></i>
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade text-start" id="modal-delete" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">
+                                                            Mahalla o'chirish</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <form class="col-12 m-auto" class="forms-sample"
+                                                        action="/region/delete/{{_id}}" method="post">
+                                                        <div class="modal-body">
+                                                            <h5 class="text-primary">Ushbu Mahalla malumotlarini
+                                                                o'chirsangiz keyin qayta tiklay olmaysiz</h5>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Qaytish</button>
+                                                            <button type="submit"
+                                                                class="btn btn-danger">O'chirish</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                                {{else}}
+                                <tr>
+                                    <td colspan="12" class="text-center py-5">
+                                        <h4 class="text-danger">malumotlar yo'q</h4>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
