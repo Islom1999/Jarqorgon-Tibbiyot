@@ -16,7 +16,8 @@
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">
                                     Hamshira Qo'shish</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <form class="col-12 m-auto" class="forms-sample" action="/nurse/create/" method="post">
                                 <div class="modal-body">
@@ -31,19 +32,54 @@
                                             name="surname" value="{{surname}}">
                                     </div>
                                     <div class="mb-3">
+                                        <label class="form-label">Otasini ismi</label>
+                                        <input required type="text" class="form-control"
+                                            placeholder="Otasini ismini kirit" name="lastname" value="{{lastname}}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Passport seriya va raqami</label>
+                                        <input required type="text" class="form-control" placeholder="AB 1234567"
+                                            name="passportSeriaNumber" value="{{passportSeriaNumber}}">
+                                    </div>
+                                    <div class="mb-3">
                                         <label class="form-label">Tel raqam</label>
                                         <input required type="text" class="form-control" placeholder="+998 xx xxx xx xx"
-                                            name="phone" value="+998">
+                                            name="phone" value="{{phone}}">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Lavozimi</label>
                                         <input required type="text" class="form-control" placeholder="Lavozim kirit"
-                                            name="role" value="{{phone}}">
+                                            name="job" value="{{job}}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Paroli</label>
+                                        <input required type="password" class="form-control" placeholder="Parol kirit"
+                                            name="password" value="{{password}}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Mahallasini tanla</label>
+                                        <select class="selectpicker col-12" name="region" data-live-search="true">
+                                            {{#each regions}}
+                                            <option value="{{_id}}">{{title}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+
+                                    {{!-- d-none date start --}}
+                                    <div class="mb-3 d-none">
+                                        <input required type="date" class="form-control createAt" name="createdAt"
+                                            value="">
+                                        <script>
+                                            const createAt = document.querySelector('.createAt');
+                                            const date = new Date()
+                                            createAt.value = `${date.getFullYear()}-${date.getMonth() >= 10 ? date.getMonth() : '0' + date.getMonth()}-${date.getDate() >= 10 ? date.getDate() : '0' + date.getDate()}`;
+                                        </script>
                                     </div>
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Qaytish</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Qaytish</button>
                                     <button type="submit" class="btn btn-primary">Qo'shish</button>
                                 </div>
                             </form>
@@ -66,8 +102,12 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Ism Familiya</th>
+                                    <th scope="col">Mahallasi</th>
+                                    <th scope="col">Passport</th>
+                                    <th scope="col">Paroli</th>
                                     <th scope="col">Tel raqami</th>
                                     <th scope="col">Lavozimi</th>
+                                    <th scope="col">Statusi</th>
                                     <th scope="col">Royhatga olingan sana</th>
                                     <th scope="col" class="text-center">O'zgartirish</th>
                                     <th scope="col" class="text-center">O'chirish</th>
@@ -78,18 +118,22 @@
                                 {{#each nurses}}
                                 <tr id="{{_id}}">
                                     <th scope="row">{{@index}}</th>
-                                    <td>{{surname}} {{firstname}}</td>
+                                    <td>{{surname}} {{firstname}} {{lastname}}</td>
+                                    <td><span class="text-primary">{{region.title}}</span></td>
+                                    <td>{{passportSeriaNumber}}</td>
+                                    <td>{{password}}</td>
                                     <td>{{phone}}</td>
+                                    <td>{{job}}</td>
                                     <td>{{role}}</td>
-                                    <td>{{created_at}}</td>
+                                    <td>{{createdAt}}</td>
                                     <td class="text-center">
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#modal-update">
+                                            data-bs-target="#modal-update-{{_id}}">
                                             <i class="ri-edit-box-fill"></i>
                                         </button>
                                         <!-- Modal -->
-                                        <div class="modal fade text-start" id="modal-update" tabindex="-1"
+                                        <div class="modal fade text-start" id="modal-update-{{_id}}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -115,6 +159,19 @@
                                                                     value="{{surname}}">
                                                             </div>
                                                             <div class="mb-3">
+                                                                <label class="form-label">Otasini ismi</label>
+                                                                <input required type="text" class="form-control"
+                                                                    placeholder="Otasini ismini kirit" name="lastname"
+                                                                    value="{{lastname}}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Passport seriya va
+                                                                    raqami</label>
+                                                                <input required type="text" class="form-control"
+                                                                    placeholder="AB 1234567" name="passportSeriaNumber"
+                                                                    value="{{passportSeriaNumber}}">
+                                                            </div>
+                                                            <div class="mb-3">
                                                                 <label class="form-label">Tel raqam</label>
                                                                 <input required type="text" class="form-control"
                                                                     placeholder="+998 xx xxx xx xx" name="phone"
@@ -123,10 +180,25 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Lavozimi</label>
                                                                 <input required type="text" class="form-control"
-                                                                    placeholder="Lavozim kirit" name="role"
-                                                                    value="{{role}}">
+                                                                    placeholder="Lavozim kirit" name="job"
+                                                                    value="{{job}}">
                                                             </div>
-
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Paroli</label>
+                                                                <input required type="password" class="form-control"
+                                                                    placeholder="Parol kirit" name="password"
+                                                                    value="{{password}}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Mahallasini tanla</label>
+                                                                <select class="selectpicker col-12" name="region"
+                                                                    data-live-search="true">
+                                                                    <option selected value="{{region._id}}">{{region.title}}</option>
+                                                                    {{#each ../ regions}}
+                                                                    <option value="{{_id}}">{{title}}</option>
+                                                                    {{/each}}
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
@@ -142,11 +214,11 @@
                                     <td class="text-center">
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modal-delete">
+                                            data-bs-target="#modal-delete-{{_id}}">
                                             <i class="ri-delete-bin-fill"></i>
                                         </button>
                                         <!-- Modal -->
-                                        <div class="modal fade text-start" id="modal-delete" tabindex="-1"
+                                        <div class="modal fade text-start" id="modal-delete-{{_id}}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -159,7 +231,8 @@
                                                     <form class="col-12 m-auto" class="forms-sample"
                                                         action="/nurse/delete/{{_id}}" method="post">
                                                         <div class="modal-body">
-                                                            <h5 class="text-primary">Ushbu hamshira malumotlarini o'chirsangiz keyin qayta tiklay olmaysiz</h5>
+                                                            <h5 class="text-primary">Ushbu hamshira malumotlarini
+                                                                o'chirsangiz keyin qayta tiklay olmaysiz</h5>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"

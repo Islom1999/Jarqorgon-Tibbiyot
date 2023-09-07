@@ -10,13 +10,13 @@ const Regions = new mongoose.Schema(
         nurses: [
             {
                 type: mongoose.Types.ObjectId,
-                ref: 'Nurses',
+                ref: 'Users',
             }
         ],
-        created_at: {
-            type: Date,
-            default: Date.now()
-        } 
+        createdAt: {
+            type: String, 
+            default: Date.now(), 
+        },
     }
 )
 

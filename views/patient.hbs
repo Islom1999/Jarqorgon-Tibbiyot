@@ -54,8 +54,8 @@
                                     <div class="mb-3">
                                         <label class="form-label">Bumor holati</label>
                                         <select class="form-select" name="status">
-                                            <option value="active">tug'gan</option>
-                                            <option value="noactive">tug'magan</option>
+                                            <option value="tug'gan">tug'gan</option>
+                                            <option value="tug'magan">tug'magan</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
@@ -72,6 +72,17 @@
                                         <label class="form-label">Oxirgi hayz</label>
                                         <input required type="date" class="form-control" placeholder="Bemor kirit"
                                             name="datePeriod" value="">
+                                    </div>
+
+                                    {{!-- d-none date start --}}
+                                    <div class="mb-3 d-none">
+                                        <input required type="date" class="form-control createAt" name="createdAt"
+                                            value="">
+                                        <script>
+                                            const createAt = document.querySelector('.createAt');
+                                            const date = new Date()
+                                            createAt.value = `${date.getFullYear()}-${date.getMonth() >= 10 ? date.getMonth() : '0' + date.getMonth()}-${date.getDate() >= 10 ? date.getDate() : '0' + date.getDate()}`;
+                                        </script>
                                     </div>
 
                                     <div class="mb-3">
@@ -100,7 +111,7 @@
             <div class="col-12">
                 <div class="card-body">
                     <h5 class="card-title">Bemorlar ro'yhati</h5>
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="min-height: 50vh;">
                         <table class="table table-bordered table-hover align-middle">
                             <thead>
                                 <tr>
@@ -128,106 +139,220 @@
                                     <td>{{surname}} {{firstname}} {{lastname}}</td>
                                     <td>{{passportSeria}} {{passportNumber}}</td>
                                     <td>{{birthDate}}</td>
-                                    <td>{{address.title}}</td>
-                                    <td>{{created_at}}</td>
+                                    <td>
+                                        <span class="text-primary" data-bs-toggle="popover"
+                                            data-bs-title="{{address.title}}" data-bs-content="
+                                            {{#each address.nurses}}
+                                                {{@index}}. {{firstname}} {{surname}};
+                                            {{/each}}
+                                        ">{{address.title}}</span>
+                                    </td>
+                                    <td>{{createdAt}}</td>
                                     <td>{{phone}}</td>
                                     <td>{{nimadur}} havta</td>
                                     <td>{{dateEnd}}</td>
                                     <td>{{datePeriod}}</td>
                                     <td>{{status}}</td>
-                                    <td>{{children}}</td>
+                                    <td>
+                                        {{#if children.boy.count}}
+                                        <li>O'gil: {{children.boy.count}}ta</li>
+                                        {{/if}}
+                                        {{#if children.girl.count}}
+                                        <li>Qiz: {{children.girl.count}}ta</li>
+                                        {{/if}}
+                                    </td>
                                     <td class="text-center">
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#modal-update-{{_id}}">
-                                            <i class="ri-edit-box-fill"></i>
-                                        </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade text-start" id="modal-update-{{_id}}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">
-                                                            Bemor o'zgartirish</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <form class="col-12 m-auto" class="forms-sample"
-                                                        action="/patient/update/{{_id}}" method="post">
-                                                        <div class="modal-body">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Bemor ismi</label>
-                                                                <input required type="text" class="form-control"
-                                                                    placeholder="Bemor ismi" name="firstname" value="{{firstname}}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Bemor familiyasi</label>
-                                                                <input required type="text" class="form-control"
-                                                                    placeholder="Bemor kirit" name="surname" value="{{surname}}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Bemor otasining ismi</label>
-                                                                <input required type="text" class="form-control"
-                                                                    placeholder="Bemor kirit" name="lastname" value="{{lastname}}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Passport Seriyasi</label>
-                                                                <input required type="text" class="form-control"
-                                                                    placeholder="Bemor kirit" name="passportSeria"
-                                                                    value="{{passportSeria}}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Passport Raqami</label>
-                                                                <input required type="number" class="form-control"
-                                                                    placeholder="Bemor kirit" name="passportNumber"
-                                                                    value="{{passportNumber}}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Tel raqami</label>
-                                                                <input required type="number" class="form-control"
-                                                                    placeholder="Bemor kirit" name="phone" value="{{phone}}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Bumor holati</label>
-                                                                <select class="form-select" name="status">
-                                                                    <option value="active">tug'gan</option>
-                                                                    <option value="noactive">tug'magan</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Tugulgan sanasi</label>
-                                                                <input required type="date" class="form-control"
-                                                                    placeholder="Bemor kirit" name="birthDate" value="{{birthDate}}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Homila muddati</label>
-                                                                <input required type="number" class="form-control"
-                                                                    placeholder="Bemor kirit" name="weeks" value="{{weeks}}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Oxirgi hayz</label>
-                                                                <input required type="date" class="form-control"
-                                                                    placeholder="Bemor kirit" name="datePeriod"
-                                                                    value="{{datePeriod}}">
-                                                            </div>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="ri-edit-box-fill"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu">
+                                                <li>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-update-{{_id}}">
+                                                        Malumotlarni o'zgartirish
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-update-week-{{_id}}">
+                                                        Homila vaqtini o'zgartirish
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-update-status-{{_id}}">
+                                                        Homila statusini o'zgartirish
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                            <!-- Modal -->
+                                            <div class="modal fade text-start" id="modal-update-{{_id}}" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5 text-center"
+                                                                id="exampleModalLabel">
+                                                                Bemor o'zgartirish</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form class="col-12 m-auto" class="forms-sample"
+                                                            action="/patient/update/{{_id}}" method="post">
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Bemor ismi</label>
+                                                                    <input required type="text" class="form-control"
+                                                                        placeholder="Bemor ismi" name="firstname"
+                                                                        value="{{firstname}}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Bemor familiyasi</label>
+                                                                    <input required type="text" class="form-control"
+                                                                        placeholder="Bemor kirit" name="surname"
+                                                                        value="{{surname}}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Bemor otasining
+                                                                        ismi</label>
+                                                                    <input required type="text" class="form-control"
+                                                                        placeholder="Bemor kirit" name="lastname"
+                                                                        value="{{lastname}}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Passport Seriyasi</label>
+                                                                    <input required type="text" class="form-control"
+                                                                        placeholder="Bemor kirit" name="passportSeria"
+                                                                        value="{{passportSeria}}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Passport Raqami</label>
+                                                                    <input required type="number" class="form-control"
+                                                                        placeholder="Bemor kirit" name="passportNumber"
+                                                                        value="{{passportNumber}}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Tel raqami</label>
+                                                                    <input required type="number" class="form-control"
+                                                                        placeholder="Bemor kirit" name="phone"
+                                                                        value="{{phone}}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Tugulgan sanasi</label>
+                                                                    <input required type="date" class="form-control"
+                                                                        placeholder="Bemor kirit" name="birthDate"
+                                                                        value="{{birthDate}}">
+                                                                </div>
 
-                                                            <div class="mb-3">
-                                                                <select class="selectpicker col-12" name="address"
-                                                                    data-live-search="true">
-                                                                    {{#each ../ regions}}
-                                                                    <option value="{{_id}}">{{title}}</option>
-                                                                    {{/each}}
-                                                                </select>
+                                                                <div class="mb-3">
+                                                                    <select class="selectpicker col-12" name="address"
+                                                                        data-live-search="true">
+                                                                        <option selected value="{{address._id}}">
+                                                                            {{address.title}}</option>
+
+                                                                        {{#each ../ regions}}
+                                                                        <option id="{{_id}}" value="{{_id}}">{{title}}
+                                                                        </option>
+                                                                        {{/each}}
+                                                                    </select>
+                                                                </div>
                                                             </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Qaytish</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Qo'shish</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade text-start" id="modal-update-status-{{_id}}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5 text-center"
+                                                                id="exampleModalLabel">
+                                                                Bemor o'zgartirish</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Qaytish</button>
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Qo'shish</button>
+                                                        <form class="col-12 m-auto" class="forms-sample"
+                                                            action="/patient/update/{{_id}}" method="post">
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Bemor holati</label>
+                                                                    <select class="form-select" name="status">
+                                                                        <option value="tug'gan">tug'gan</option>
+                                                                        <option value="tug'magan">tug'magan</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="mb-3 row">
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">O'gil farzand</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input class="form-control" type="number" name="boy" placeholder="soni">
+                                                                            <span class="input-group-text">dona</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">Qiz farzand</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input class="form-control" type="number" name="girl" placeholder="soni">
+                                                                            <span class="input-group-text">dona</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Qaytish</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Qo'shish</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade text-start" id="modal-update-week-{{_id}}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5 text-center"
+                                                                id="exampleModalLabel">
+                                                                Bemor o'zgartirish</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                    </form>
+                                                        <form class="col-12 m-auto" class="forms-sample"
+                                                            action="/patient/update/{{_id}}" method="post">
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Homila havtasi</label>
+                                                                    <input required type="number" class="form-control"
+                                                                        placeholder="Bemor kirit" name="week" value="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Qaytish</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Qo'shish</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -235,11 +360,11 @@
                                     <td class="text-center">
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modal-delete">
+                                            data-bs-target="#modal-delete-{{_id}}">
                                             <i class="ri-delete-bin-fill"></i>
                                         </button>
                                         <!-- Modal -->
-                                        <div class="modal fade text-start" id="modal-delete" tabindex="-1"
+                                        <div class="modal fade text-start" id="modal-delete-{{_id}}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -270,7 +395,7 @@
                                 {{/each}}
                                 {{else}}
                                 <tr>
-                                    <td colspan="12" class="text-center py-5">
+                                    <td colspan="14" class="text-center py-5">
                                         <h4 class="text-danger">malumotlar yo'q</h4>
                                     </td>
                                 </tr>

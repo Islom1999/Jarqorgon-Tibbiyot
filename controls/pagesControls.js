@@ -1,6 +1,4 @@
-const Admins = require('../models/admin.model')
-const Childrens = require('../models/children.model')
-const Nurses = require('../models/nurse.model')
+const Users = require('../models/user.model')
 const Patients = require('../models/patient.model')
 const Regions = require('../models/region.model')
 
@@ -16,10 +14,18 @@ const getHome = async(req, res) => {
 
 const getPatient = async(req, res) => {
     try {
-        const patients = await Patients.find().populate('address').lean()
+        const patients = await Patients.find()
+            .populate({
+                path: 'address',
+                populate: {
+                    path: 'nurses',
+                },
+            })
+            .lean()
+            
         const regions = await Regions.find().populate('nurses').lean()
 
-        res.render('patient', {
+        res.render('patient', { 
             title: 'Bemorlar',
             patients,
             regions
@@ -32,11 +38,12 @@ const getPatient = async(req, res) => {
 const getRegion = async(req, res) => {
     try {
         const regions = await Regions.find().populate('nurses').lean().exec()
-        const nurses = await Nurses.find().lean()
+        const users = await Users.find().lean()
+
         res.render('region', {
             title: 'Mahallalar',
             regions,
-            nurses
+            nurses: users
         })
     } catch (error) {
         console.log(error)
@@ -45,13 +52,16 @@ const getRegion = async(req, res) => {
 
 const getNurse = async(req, res) => {
     try {
-        const nurses = await Nurses.find().lean()
+        const users = await Users.find({role: 'Nurse'}).populate('region').lean()
+        const regions = await Regions.find().lean()
+
         res.render('nurse', {
             title: 'Hamshiralar',
-            nurses
+            nurses: users,
+            regions,
         })
     } catch (error) {
-        console.log(error)
+        console.log(error)  
     }
 }
 

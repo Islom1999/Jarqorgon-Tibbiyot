@@ -1,21 +1,33 @@
-const Admins = require('../models/admin.model')
-const Childrens = require('../models/children.model')
-const Nurses = require('../models/nurse.model')
+const Users = require('../models/user.model')
 const Patients = require('../models/patient.model')
 const Regions = require('../models/region.model')
 
 
 const createNurse = async(req, res) => {
     try {
-        await Nurses.create(req.body)
-        res.redirect('/nurse')
+        const role = 'Nurse'
+        const regionId = req.body.region
+
+        const users = new Users({... req.body, role})
+        users.save()
+
+        await Regions.findByIdAndUpdate(regionId, { $push: { nurses: users._id } })
+        
+        res.redirect('/nurse') 
     } catch (error) {
         console.log(error)
     }
 }
 const updateNurse = async(req, res) => {
     try {
-        await Nurses.findByIdAndUpdate(req.params.id, req.body)
+        if(req.body.region){
+            const nurseId = req.params.id
+            const regionId = req.body.region
+            await Regions.findOneAndUpdate({nurses: {$in: nurseId}}, { $pull: { nurses: nurseId }})
+            await Regions.findByIdAndUpdate(regionId, { $push: { nurses: nurseId } })
+        }
+        
+        await Users.findByIdAndUpdate(req.params.id, req.body)
         res.redirect('/nurse')
     } catch (error) {
         console.log(error)
@@ -23,7 +35,11 @@ const updateNurse = async(req, res) => {
 }
 const deleteNurse = async(req, res) => {
     try {
-        await Nurses.findByIdAndDelete(req.params.id)
+        await Users.findByIdAndDelete(req.params.id)
+        
+        const nurseId = req.params.id
+        await Regions.findOneAndUpdate({nurses: {$in: nurseId}}, { $pull: { nurses: nurseId }})
+
         res.redirect('/nurse')
     } catch (error) {
         console.log(error)
@@ -33,8 +49,16 @@ const deleteNurse = async(req, res) => {
 
 const createRegion = async(req, res) => {
     try {
+        // const usersId = req.body.nurses
+
+        // const region = new Regions({... req.body})
+        // region.save()
+
+        // await Users.findByIdAndUpdate(regionId, { $push: { nurses: users._id } })
+
         await Regions.create(req.body)
         console.log(req.body)
+
         res.redirect('/region')
     } catch (error) {
         console.log(error)
@@ -61,9 +85,12 @@ const createPatient = async(req, res) => {
     try {
         const {weeks} = req.body
         const dateStart = new Date()
-        const dateEnd = new Date()
+        let dateEnd = new Date()
+
         dateStart.setDate( dateStart.getDate() - +weeks * 7 )
         dateEnd.setDate( dateStart.getDate() + 9 * 30 + 9 )
+
+        dateEnd = `${dateStart.getFullYear()}-${dateEnd.getMonth() >= 10 ? dateEnd.getMonth() : '0' + dateEnd.getMonth()}-${dateEnd.getDate() >= 10 ? dateEnd.getDate() : '0' + dateEnd.getDate()}`
 
         await Patients.create({...req.body, dateStart, dateEnd})
         res.redirect('/patient')
@@ -71,10 +98,42 @@ const createPatient = async(req, res) => {
         console.log(error)
     }
 }
+
 const updatePatient = async(req, res) => {
     try {
-        await Patients.findByIdAndUpdate(req.params.id, req.body)
+        const week = req.body.week
+        const boy = req.body.boy
+        const girl = req.body.girl
+
+        if(boy || girl) {
+            await Patients.findByIdAndUpdate(req.params.id, {
+                ... req.body,
+                children: {
+                    boy: {
+                      count: +boy
+                    },
+                    girl: {
+                      count: +girl
+                    }
+                },
+            })
+        }
+        
+        if(week){
+            const dateStart = new Date() 
+            let dateEnd = new Date()
+
+            dateStart.setDate( dateStart.getDate() - +week * 7 )
+            dateEnd.setDate( dateStart.getDate() + 9 * 30 + 9 )
+            
+            dateEnd = `${dateStart.getFullYear()}-${dateEnd.getMonth() >= 10 ? dateEnd.getMonth() : '0' + dateEnd.getMonth()}-${dateEnd.getDate() >= 10 ? dateEnd.getDate() : '0' + dateEnd.getDate()}`
+            await Patients.findByIdAndUpdate(req.params.id, {dateStart, dateEnd})
+        }else{
+            await Patients.findByIdAndUpdate(req.params.id, req.body)
+        }
+
         res.redirect('/patient')
+
     } catch (error) {
         console.log(error)
     }
