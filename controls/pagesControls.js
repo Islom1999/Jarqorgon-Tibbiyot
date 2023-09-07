@@ -14,7 +14,27 @@ const getHome = async(req, res) => {
 
 const getPatient = async(req, res) => {
     try {
-        const patients = await Patients.find()
+        const total = await Patients.countDocuments()
+        const limit = req.query.limit || 10
+        const page = req.query.page || 1
+
+        const region = req.query.region || undefined 
+        const status = req.query.status || undefined 
+
+        const week = req.query.week || undefined 
+        const month = req.query.month || undefined 
+        const year = req.query.year || undefined 
+        const dateStart = req.query.dateStart || undefined 
+        const dateEnd = req.query.dateEnd || undefined 
+
+        const patients = await Patients.find(
+            {
+                // address: region,
+                // status: "tug'gan"
+            })
+            .sort({createdAt: -1})
+            .skip((page * limit) - limit)
+            .limit(limit)
             .populate({
                 path: 'address',
                 populate: {
@@ -28,7 +48,12 @@ const getPatient = async(req, res) => {
         res.render('patient', { 
             title: 'Bemorlar',
             patients,
-            regions
+            regions,
+            pagination: {
+                page,
+                limit,
+                pageCount: Math.ceil(total/limit)
+            },
         })
     } catch (error) {
         console.log(error)
@@ -37,13 +62,27 @@ const getPatient = async(req, res) => {
 
 const getRegion = async(req, res) => {
     try {
-        const regions = await Regions.find().populate('nurses').lean().exec()
+        const total = await Regions.countDocuments()
+        const limit = req.query.limit || 20
+        const page = req.query.page || 1
+
+        const regions = await Regions.find().populate('nurses')
+            .sort({createdAt: -1})
+            .skip((page * limit) - limit)
+            .limit(limit)
+            .lean()
+
         const users = await Users.find().lean()
 
         res.render('region', {
             title: 'Mahallalar',
             regions,
-            nurses: users
+            nurses: users,
+            pagination: {
+                page,
+                limit,
+                pageCount: Math.ceil(total/limit)
+            },
         })
     } catch (error) {
         console.log(error)
@@ -52,13 +91,27 @@ const getRegion = async(req, res) => {
 
 const getNurse = async(req, res) => {
     try {
-        const users = await Users.find({role: 'Nurse'}).populate('region').lean()
+        const total = await Users.countDocuments()
+        const limit = req.query.limit || 20
+        const page = req.query.page || 1
+
+        const users = await Users.find({role: 'Nurse'})
+            .sort({createdAt: -1})
+            .skip((page * limit) - limit)
+            .limit(limit)
+            .populate('region')
+            .lean()
         const regions = await Regions.find().lean()
 
         res.render('nurse', {
             title: 'Hamshiralar',
             nurses: users,
             regions,
+            pagination: {
+                page,
+                limit,
+                pageCount: Math.ceil(total/limit)
+            },
         })
     } catch (error) {
         console.log(error)  

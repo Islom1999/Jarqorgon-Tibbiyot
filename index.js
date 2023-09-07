@@ -1,17 +1,21 @@
 const express = require('express')
 const path = require('path')
 const {engine} = require('express-handlebars')
-require('dotenv').config()
 //  REQUIRE DB function
 const configDB = require('./configDB/config')
 // session registry
 const session = require('express-session')
 const MongoStore = require('connect-mongodb-session')(session)
+// 
+const helpers = require('./utils/hbsHelpers')
+const Handlebars = require('handlebars')
+
+require('dotenv').config()
 
 // server configuration
 const server = express()
 
-// DB configuration
+// DB configuration 
 configDB()
 
 // JSON configuration
@@ -34,20 +38,15 @@ server.use(session({
     store
 }))
 
+//Register handlebars helpers
+helpers(Handlebars)
+
 // STATIC FILES configuration
 server.use(express.static( path.join(__dirname, 'public') ))
 
 // Router configuration
 server.use('/', require('./routers/pagesRouters'))
 
-const Handlebars = require('handlebars');
-
-Handlebars.registerHelper('ifEqual', function (a, b, options) {
-  if (a === b) {
-    return options.fn(this);
-  }
-  return options.inverse(this);
-});
 
 // SERVER LISTENING configuration
 const PORT = process.env.PORT || 5000
