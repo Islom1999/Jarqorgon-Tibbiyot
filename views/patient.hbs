@@ -587,6 +587,27 @@
                             {{/paginate}}
                         </ul>
                     </nav>
+
+                    <div class="text-end">
+                        {{!-- <button class="btn btn-outline-primary me-1">Import Exel</button> --}}
+                        <form class="d-inline" action="/export/json/patient" method="post">
+                            <button class="btn btn-outline-primary me-1">
+                                <span class=" d-flex align-items-center">
+                                    <i class="ri-folder-download-line me-2" style="font-size: 2em;"></i>
+                                    <span>Export Json File</span>
+                                </span>
+                            </button>
+                        </form>
+                        <form class="d-inline" action="/export/excel/patient" method="post">
+                            <button class="btn btn-outline-success me-1">
+                                <span class=" d-flex align-items-center">
+                                    <i class="ri-folder-download-line me-2" style="font-size: 2em;"></i>
+                                    <span>Export Exel File</span>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>

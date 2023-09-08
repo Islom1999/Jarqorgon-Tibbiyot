@@ -65,9 +65,19 @@
 
             <div class="col-12">
                 <div class="card-body">
-                    <h5 class="card-title">Mahallalar ro'yhati</h5>
+                    <h5 class="card-title text-center">Mahallalar ro'yhati</h5>
+                    <form action="">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <input type="search" class="form-control col-md-6 col-sm-12 col" name="search" value="{{search}}" placeholder="Izlash:mahalla nomi bo'yicha"/>
+                                    <button class="input-group-text btn btn-primary bg-primary">Izlash</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover align-middle">
+                        <table id="datatable" class="table table-bordered table-hover align-middle">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -208,6 +218,26 @@
                             {{/paginate}}
                         </ul>
                     </nav>
+
+                    <div class="text-end">
+                        {{!-- <button class="btn btn-outline-primary me-1">Import Exel</button> --}}
+                        <form class="d-inline" action="/export/json/region" method="post">
+                            <button class="btn btn-outline-primary me-1">
+                                <span class=" d-flex align-items-center">
+                                    <i class="ri-folder-download-line me-2" style="font-size: 2em;"></i>
+                                    <span>Export Json File</span>
+                                </span>
+                            </button>
+                        </form>
+                        <form class="d-inline" action="/export/excel/region" method="post">
+                            <button class="btn btn-outline-success me-1">
+                                <span class=" d-flex align-items-center">
+                                    <i class="ri-folder-download-line me-2" style="font-size: 2em;"></i>
+                                    <span>Export Exel File</span>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

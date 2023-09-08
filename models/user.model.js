@@ -34,6 +34,7 @@ const Users = new mongoose.Schema(
         role: {
             type: "string",     // StarAdmin, Admin, Nurse, 
             required: true,
+            enum: ['StarAdmin', 'Admin', 'Nurse']
             // default: "Nurse",
         },
         job: {

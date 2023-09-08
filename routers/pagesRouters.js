@@ -19,6 +19,15 @@ const {
     deletePatient,
 } = require('../controls/crudControls')
 
+const {
+    exportExelRegion,
+    exportJsonRegion,
+    exportExelNurse,
+    exportJsonNurse,
+    exportExelPatient,
+    exportJsonPatient,
+} = require('../controls/exportControls')
+
 const router = Router()
 
 router.get('/', getHome)
@@ -37,6 +46,16 @@ router.get('/nurse', getNurse)
 router.post('/nurse/create', createNurse)
 router.post('/nurse/update/:id', updateNurse)
 router.post('/nurse/delete/:id', deleteNurse)
+
+// export data
+router.post('/export/excel/region', exportExelRegion)
+router.post('/export/json/region', exportJsonRegion)
+
+router.post('/export/excel/nurse', exportExelNurse)
+router.post('/export/json/nurse', exportJsonNurse)
+
+router.post('/export/excel/patient', exportExelPatient)
+router.post('/export/json/patient', exportJsonPatient)
 
 module.exports = router
 

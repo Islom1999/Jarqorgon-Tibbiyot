@@ -34,7 +34,7 @@ const Patients = new mongoose.Schema(
     status: {
       type: "string",
       required: true,
-      default: "Nurse",
+      enum: ["Tug'gan", "Tug'magan", "Tushib Qolgan"]
     },
     birthDate: {
       type: String,

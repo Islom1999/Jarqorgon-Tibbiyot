@@ -1,3 +1,5 @@
 node_modules
 shablon
 .env
+public/exel-export
+public/json-export

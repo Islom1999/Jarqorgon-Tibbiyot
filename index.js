@@ -34,13 +34,13 @@ const store = new MongoStore({
 server.use(session({
     secret: process.env.SECTION_SECRET,
     resave: false, 
-    saveUninitialized: false,
+    saveUninitialized: false, 
     store
-}))
+})) 
 
 //Register handlebars helpers
-helpers(Handlebars)
-
+helpers(Handlebars) 
+ 
 // STATIC FILES configuration
 server.use(express.static( path.join(__dirname, 'public') ))
 
