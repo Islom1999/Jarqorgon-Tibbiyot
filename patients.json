@@ -1,0 +1,197 @@
+[{
+  "_id": {
+    "$oid": "64f9817198b92194909b5f7d"
+  },
+  "firstname": "Sardor",
+  "surname": "bhhgygyuyu",
+  "lastname": "gygyugy",
+  "passportSeria": "gyugyu",
+  "passportNumber": 12,
+  "phone": "998972446977",
+  "status": "tug'magan",
+  "birthDate": "2023-09-19",
+  "dateStart": "Thu Aug 31 2023 12:53:21 GMT+0500 (Uzbekistan Standard Time)",
+  "dateEnd": "2023-06-06",
+  "datePeriod": "2023-09-19",
+  "address": {
+    "$oid": "64f97ba8c00f5ae5a18d187d"
+  },
+  "children": {
+    "boy": {
+      "count": 1
+    },
+    "girl": {
+      "count": 1
+    }
+  },
+  "createdAt": "2023-08-07",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64f986f7e0be71d882e54716"
+  },
+  "firstname": "dfndjkl",
+  "surname": "ggyugu",
+  "lastname": "yugyugu",
+  "passportSeria": "gyugygyu",
+  "passportNumber": 121,
+  "phone": "121",
+  "status": "tug'gan",
+  "birthDate": "2023-09-26",
+  "dateStart": "Thu Aug 31 2023 13:16:54 GMT+0500 (Uzbekistan Standard Time)",
+  "dateEnd": "2023-06-06",
+  "datePeriod": "2023-09-22",
+  "address": {
+    "$oid": "64f97ba1c00f5ae5a18d1879"
+  },
+  "createdAt": "2023-08-07",
+  "__v": 0,
+  "children": {
+    "boy": {
+      "count": 0
+    },
+    "girl": {
+      "count": 1
+    }
+  }
+},{
+  "_id": {
+    "$oid": "64f9ae152038f2095692e6a8"
+  },
+  "firstname": "ajdsnsakj",
+  "surname": "bhhgygyuyu",
+  "lastname": "gygyugy",
+  "passportSeria": "gyugyu",
+  "passportNumber": 12,
+  "phone": "998972446977",
+  "status": "tug'gan",
+  "birthDate": "2023-09-19",
+  "dateStart": "Thu Aug 31 2023 12:53:21 GMT+0500 (Uzbekistan Standard Time)",
+  "dateEnd": "2023-06-06",
+  "datePeriod": "2023-09-19",
+  "address": {
+    "$oid": "64f97ba8c00f5ae5a18d187d"
+  },
+  "children": {
+    "boy": {
+      "count": 1
+    },
+    "girl": {
+      "count": 1
+    }
+  },
+  "createdAt": "2023-08-07",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64f9ae1a2038f2095692e6a9"
+  },
+  "firstname": "ajdsnsakj",
+  "surname": "bhhgygyuyu",
+  "lastname": "gygyugy",
+  "passportSeria": "gyugyu",
+  "passportNumber": 12,
+  "phone": "998972446977",
+  "status": "tug'gan",
+  "birthDate": "2023-09-19",
+  "dateStart": "Thu Aug 31 2023 12:53:21 GMT+0500 (Uzbekistan Standard Time)",
+  "dateEnd": "2023-06-06",
+  "datePeriod": "2023-09-19",
+  "address": {
+    "$oid": "64f97ba8c00f5ae5a18d187d"
+  },
+  "children": {
+    "boy": {
+      "count": 1
+    },
+    "girl": {
+      "count": 1
+    }
+  },
+  "createdAt": "2023-08-07",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64f9ae1e2038f2095692e6aa"
+  },
+  "firstname": "ajdsnsakj",
+  "surname": "bhhgygyuyu",
+  "lastname": "gygyugy",
+  "passportSeria": "gyugyu",
+  "passportNumber": 12,
+  "phone": "998972446977",
+  "status": "tug'gan",
+  "birthDate": "2023-09-19",
+  "dateStart": "Thu Aug 31 2023 12:53:21 GMT+0500 (Uzbekistan Standard Time)",
+  "dateEnd": "2023-06-06",
+  "datePeriod": "2023-09-19",
+  "address": {
+    "$oid": "64f97ba8c00f5ae5a18d187d"
+  },
+  "children": {
+    "boy": {
+      "count": 1
+    },
+    "girl": {
+      "count": 1
+    }
+  },
+  "createdAt": "2023-08-07",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64f9ae232038f2095692e6ab"
+  },
+  "firstname": "ajdsnsakj",
+  "surname": "bhhgygyuyu",
+  "lastname": "gygyugy",
+  "passportSeria": "gyugyu",
+  "passportNumber": 12,
+  "phone": "998972446977",
+  "status": "tug'gan",
+  "birthDate": "2023-09-19",
+  "dateStart": "Thu Aug 31 2023 12:53:21 GMT+0500 (Uzbekistan Standard Time)",
+  "dateEnd": "2023-06-06",
+  "datePeriod": "2023-09-19",
+  "address": {
+    "$oid": "64f97ba8c00f5ae5a18d187d"
+  },
+  "children": {
+    "boy": {
+      "count": 1
+    },
+    "girl": {
+      "count": 0
+    }
+  },
+  "createdAt": "2023-08-07",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64f9ae282038f2095692e6ac"
+  },
+  "firstname": "ajdsnsakj",
+  "surname": "bhhgygyuyu",
+  "lastname": "gygyugy",
+  "passportSeria": "gyugyu",
+  "passportNumber": 12,
+  "phone": "998972446977",
+  "status": "tug'gan",
+  "birthDate": "2023-09-19",
+  "dateStart": "Thu Aug 31 2023 12:53:21 GMT+0500 (Uzbekistan Standard Time)",
+  "dateEnd": "2023-06-06",
+  "datePeriod": "2023-09-19",
+  "address": {
+    "$oid": "64f97ba8c00f5ae5a18d187d"
+  },
+  "children": {
+    "boy": {
+      "count": 1
+    },
+    "girl": {
+      "count": 0
+    }
+  },
+  "createdAt": "2023-08-07",
+  "__v": 0
+}]

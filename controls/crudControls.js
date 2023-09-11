@@ -98,7 +98,6 @@ const createPatient = async(req, res) => {
         console.log(error)
     }
 }
-
 const updatePatient = async(req, res) => {
     try {
         const week = req.body.week

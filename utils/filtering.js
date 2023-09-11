@@ -1,127 +1,62 @@
-const filtering = (category, from, to, region) => {
+const { DateTime } = require('luxon');
+
+const filtering = (status, region, week, month, year, dateStart, dateEnd) => {
     let filtering
-    //If exists all of them
-    if(category && from && to && region){
+    
+    let date_bosh 
+    let date_oxiri 
+
+    if(week && !month && !year && !(dateStart || dateEnd)) {
+      const [years, weekNumber] = week.split('-W'); 
+      date_bosh  = new Date(years, 0, 3 + (weekNumber - 1) * 7);
+      date_oxiri  = new Date(years, 0, 3 + (weekNumber - 1) * 7 + 6);
+    }else if(!week && month && !year && !(dateStart || dateEnd)) { 
+      date_bosh = new Date(month);
+      date_oxiri  = new Date(`${date_bosh.getFullYear()}-${date_bosh.getMonth() + 2 < 10 ? "0" + (date_bosh.getMonth()+2) : date_bosh.getMonth()+2 }`);
+    }else if(!week && !month && year && !(dateStart || dateEnd)) {
+      date_bosh = new Date(year);
+      date_oxiri = new Date(`${+date_bosh.getFullYear() + 1}`); 
+    }else if(!week && !month && !year && (dateStart && dateEnd)) { 
+      date_bosh  = new Date(dateStart);
+      date_oxiri  = new Date(dateEnd);
+    }else{
+      const hozirgiVaqt = new Date(); 
+      const yil = hozirgiVaqt.getFullYear();
+      const weeks = Math.floor(( (+hozirgiVaqt - new Date(yil, 0, 1)) / 86400000 + 1) / 7) + 1; 
+     
+      const formattedDate = `${yil}-W${weeks < 10 ? '0' + weeks : weeks}`;
+      const [years, weekNumber] = formattedDate.split("-W");
+      
+      date_bosh  = new Date(years, 0, 3 + (weekNumber - 1) * 7);
+      date_oxiri  = new Date(years, 0, 3 + (weekNumber - 1) * 7 + 6 + 10);
+    }
+
+    if(!status && !region) {
       filtering = {
-        category,
-        amount: { $gte: from, $lte: to },
-        region
+        dateEnd: { $gte: date_bosh, $lte: date_oxiri },
       }
     }
-  
-    //If exists only category
-    if(category && !from && !to && !region){
+    if(status && !region) {
       filtering = {
-        category
+        dateEnd: { $gte: date_bosh, $lte: date_oxiri },
+        status
       }
     }
-  
-    //If existe category and region
-    if(category && !from && !to && region){
+    if(!status && region) {
       filtering = {
-        category,
-        region
+        dateEnd: { $gte: date_bosh, $lte: date_oxiri },   
+        address:region
       }
     }
-  
-    //If exist category region and from
-    if(category && from && !to && region){
+    if(status && region) {
       filtering = {
-        category,
-        region,
-        amount: { $gte: from }
+        dateEnd: { $gte: date_bosh, $lte: date_oxiri },
+        status,
+        address:region
       }
     }
-  
-    //If exist category region and to
-    if(category && !from && to && region){
-      filtering = {
-        category,
-        region,
-        amount: { $lte: to }
-      }
-    }
-  
-    //If exist only category and from
-    if(category && from && !to && !region){
-      filtering = {
-        category,
-        amount: { $gte: from }
-      }
-    }
-  
-    //If exist category and to
-    if(category && !from && to && !region){
-      filtering = {
-        category,
-        amount: { $lte: to }
-      }
-    }
-  
-    //If exist category  from and to
-    if(category && from && to && !region){
-      filtering = {
-        category,
-        amount: { $gte: from, $lte: to }
-      }
-    }
-  
-    //If exist only from
-    if(!category && from && !to && !region){
-      filtering = {
-        amount: { $gte: from }
-      }
-    }
-  
-    //If exist from and to
-    if(!category && from && to && !region){
-      filtering = {
-        amount: { $gte: from, $lte: to }
-      }
-    }
-  
-    //If exist from and to and region
-    if(!category && from && to && region){
-      filtering = {
-        region,
-        amount: { $gte: from, $lte: to }
-      }
-    }
-  
-    //If exist from and region
-    if(!category && from && !to && region){
-      filtering = {
-        region,
-        amount: { $gte: from }
-      }
-    }
-  
-    //If exist only to 
-    if(!category && !from && to && !region){
-      filtering = {
-        amount: { $lte: to }
-      }
-    }
-  
-    //If exist to and region
-    if(!category && !from && to && region){
-      filtering = {
-        region,
-        amount: { $lte: to }
-      }
-    }
-  
-    //If exist only region
-    if(!category && !from && !to && region){
-      filtering = {
-        region,
-      }
-    }
-  
-    //If not exist any of them
-    if(!category && !from && !to && !region){
-      filtering = {}
-    }
+
+    // console.log(filtering)
   
     return filtering
   }

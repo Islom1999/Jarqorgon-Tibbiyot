@@ -12,7 +12,7 @@ const Users = new mongoose.Schema(
             required: true, 
             trim:true, 
         },
-        lastname: {
+        lastname: { 
             type: "string", 
             required: true, 
             trim:true, 
@@ -47,7 +47,7 @@ const Users = new mongoose.Schema(
             ref: "Regions",
         },
         createdAt: {
-            type: String, 
+            type: Date, 
             default: Date.now(),
         },  
     }

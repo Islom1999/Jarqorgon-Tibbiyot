@@ -34,22 +34,22 @@ const Patients = new mongoose.Schema(
     status: {
       type: "string",
       required: true,
-      enum: ["Tug'gan", "Tug'magan", "Tushib Qolgan"]
+      enum: ["tuggan", "tugmagan", "tushib qolgan", "abort qilingan"]
     },
     birthDate: {
-      type: String,
+      type: Date,
       required: true,
     },
     dateStart: {
-      type: String,
-      required: true,
+      type: Date,
+      required: true,   
     },
-    dateEnd: {
-      type: String,
+    dateEnd: { 
+      type: Date,
       required: false,
     },
     datePeriod: {
-      type: String,
+      type: Date,
       required: false,
     },
     address: {
@@ -75,7 +75,7 @@ const Patients = new mongoose.Schema(
       }
     },
     createdAt: {
-        type: String, 
+        type: Date, 
         default: Date.now(),
     },
   }

@@ -34,18 +34,6 @@
                                             {{/each}}
                                         </select>
                                     </div> --}}
-
-                                    {{!-- d-none date start --}}
-                                    <div class="mb-3 d-none">
-                                        <input required type="date" class="form-control createAt" name="createdAt"
-                                            value="">
-                                        <script>
-                                            const createAt = document.querySelector('.createAt');
-                                            const date = new Date()
-                                            createAt.value = `${date.getFullYear()}-${date.getMonth() >= 10 ? date.getMonth() : '0' + date.getMonth()}-${date.getDate() >= 10 ? date.getDate() : '0' + date.getDate()}`;
-                                        </script>
-                                    </div>
-                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -102,7 +90,7 @@
                                             {{/each}}
                                         </ol>
                                     </td>
-                                    <td>{{createdAt}}</td>
+                                    <td>{{formatDate createdAt}}</td>
                                     <td class="text-center">
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"

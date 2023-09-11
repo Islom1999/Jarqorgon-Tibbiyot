@@ -68,8 +68,10 @@
                                         <div class="col-6">
                                             <label class="form-label">Bumor holati</label>
                                             <select class="form-select" name="status">
-                                                <option value="tug'gan">tug'gan</option>
-                                                <option value="tug'magan">tug'magan</option>
+                                                <option value="tugmagan">tugmagan</option>
+                                                <option value="tushib qolgan">tushib qolgan</option>
+                                                <option value="abort qilingan">abort qilingan</option>
+                                                <option value="tuggan">tuggan</option>
                                             </select>
                                         </div>
                                         <div class="col-6">
@@ -92,18 +94,6 @@
                                                 name="datePeriod" value="">
                                         </div>
                                     </div>
-
-                                    {{!-- d-none date start --}}
-                                    <div class="mb-3 d-none">
-                                        <input required type="date" class="form-control createAt" name="createdAt"
-                                            value="">
-                                        <script>
-                                            const createAt = document.querySelector('.createAt');
-                                            const date = new Date()
-                                            createAt.value = `${date.getFullYear()}-${date.getMonth() >= 10 ? date.getMonth() : '0' + date.getMonth()}-${date.getDate() >= 10 ? date.getDate() : '0' + date.getDate()}`;
-                                        </script>
-                                    </div>
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -127,9 +117,9 @@
                         <div class="accordion accordion-flush" id="accordionFlushExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header text-center" id="flush-headingOne">
-                                    <button class="accordion-button collapsed d-block" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                        aria-controls="flush-collapseOne">
+                                    <button class="accordion-button collapsed d-block" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                        aria-expanded="false" aria-controls="flush-collapseOne">
                                         <h5 class="text-primary text-center pt-4">Malumotlarni filter qilish</h5>
                                     </button>
                                 </h2>
@@ -142,7 +132,7 @@
                                                     <label class="form-label">Bemorlar soni</label>
                                                     <select name="limit" class="form-select">
                                                         <option value="10">10</option>
-                                                        <option value="20">20</option>
+                                                        <option value="20" selected>20</option>
                                                         <option value="50">50</option>
                                                         <option value="100">100</option>
                                                     </select>
@@ -150,15 +140,18 @@
                                                 <div class="col-md-4 col-sm-12">
                                                     <label class="form-label">Bemorlar statusi</label>
                                                     <select name="status" class="form-select">
-                                                        <option value="tuggan">tug'gan</option>
-                                                        <option value="tugmagan">tug'magan</option>
-                                                        <option value="tushgan">tushgan</option>
+                                                        <option value="">statusni tanlang</option>
+                                                        <option value="tugmagan">tugmagan</option>
+                                                        <option value="tushib qolgan">tushib qolgan</option>
+                                                        <option value="abort qilingan">abort qilingan</option>
+                                                        <option value="tuggan">tuggan</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4 col-sm-12">
                                                     <label class="form-label">Bemorlar mahallasi</label>
                                                     <select class="selectpicker col-12" name="region"
                                                         data-live-search="true">
+                                                        <option value="">mahalla tanlang</option>
                                                         {{#each regions}}
                                                         <option value="{{_id}}">{{title}}</option>
                                                         {{/each}}
@@ -172,26 +165,26 @@
                                                     <li class="nav-item flex-fill" role="presentation">
                                                         <button class="nav-link w-100 active" id="home-tab"
                                                             data-bs-toggle="tab" data-bs-target="#home-justified"
-                                                            type="button" role="tab" 
-                                                            aria-selected="true">HavtaLar bo'yicha</button>
+                                                            type="button" role="tab" aria-selected="true">HavtaLar
+                                                            bo'yicha</button>
                                                     </li>
                                                     <li class="nav-item flex-fill" role="presentation">
                                                         <button class="nav-link w-100" id="profile-tab"
                                                             data-bs-toggle="tab" data-bs-target="#profile-justified"
-                                                            type="button" role="tab" 
-                                                            aria-selected="false">Oylar bo'yicha</button>
+                                                            type="button" role="tab" aria-selected="false">Oylar
+                                                            bo'yicha</button>
                                                     </li>
                                                     <li class="nav-item flex-fill" role="presentation">
                                                         <button class="nav-link w-100" id="contact-tab"
                                                             data-bs-toggle="tab" data-bs-target="#contact-justified"
-                                                            type="button" role="tab" 
-                                                            aria-selected="false">Yillar bo'yicha</button>
+                                                            type="button" role="tab" aria-selected="false">Yillar
+                                                            bo'yicha</button>
                                                     </li>
                                                     <li class="nav-item flex-fill" role="presentation">
                                                         <button class="nav-link w-100" id="contact-tab"
                                                             data-bs-toggle="tab" data-bs-target="#selected-justified"
-                                                            type="button" role="tab"
-                                                            aria-selected="false">Tanlangan sanalar
+                                                            type="button" role="tab" aria-selected="false">Tanlangan
+                                                            sanalar
                                                             bo'yicha</button>
                                                     </li>
                                                 </ul>
@@ -220,7 +213,8 @@
                                                     <div class="row pt-3 justify-content-center">
                                                         <div class="col-md-4 col-sm-12">
                                                             <label class="form-label">Yilni tanlang</label>
-                                                            <input class="date-own form-control" type="text" name="year">
+                                                            <input class="date-own form-control" type="text"
+                                                                name="year">
                                                             <style>
                                                                 .ui-datepicker-calendar {
                                                                     display: none;
@@ -289,7 +283,7 @@
                                     <th scope="row">{{@index}}</th>
                                     <td>{{surname}} {{firstname}} {{lastname}}</td>
                                     <td>{{passportSeria}} {{passportNumber}}</td>
-                                    <td>{{birthDate}}</td>
+                                    <td>{{formatDate birthDate}}</td>
                                     <td>
                                         <span class="text-primary" data-bs-toggle="popover"
                                             data-bs-title="{{address.title}}" data-bs-content="
@@ -298,11 +292,11 @@
                                             {{/each}}
                                         ">{{address.title}}</span>
                                     </td>
-                                    <td>{{createdAt}}</td>
+                                    <td>{{formatDate createdAt}}</td>
                                     <td>{{phone}}</td>
                                     <td>{{nimadur}} havta</td>
-                                    <td>{{dateEnd}}</td>
-                                    <td>{{datePeriod}}</td>
+                                    <td>{{formatDate dateEnd}}</td>
+                                    <td>{{formatDate datePeriod}}</td>
                                     <td>{{status}}</td>
                                     <td>
                                         {{#if children.boy.count}}
@@ -420,7 +414,7 @@
                                                                     <label class="form-label">Tugulgan sanasi</label>
                                                                     <input required type="date" class="form-control"
                                                                         placeholder="Bemor kirit" name="birthDate"
-                                                                        value="{{birthDate}}">
+                                                                        value="{{formatDate birthDate}}">
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -452,8 +446,12 @@
                                                                 <div class="mb-3">
                                                                     <label class="form-label">Bemor holati</label>
                                                                     <select class="form-select" name="status">
-                                                                        <option value="tug'gan">tug'gan</option>
-                                                                        <option value="tug'magan">tug'magan</option>
+                                                                        <option value="tugmagan">tugmagan</option>
+                                                                        <option value="tushib qolgan">tushib qolgan
+                                                                        </option>
+                                                                        <option value="abort qilingan">abort qilingan
+                                                                        </option>
+                                                                        <option value="tuggan">tuggan</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="mb-3 row">

@@ -1,0 +1,35 @@
+[{
+  "_id": {
+    "$oid": "64f97f391986e646f88451f3"
+  },
+  "firstname": "Sardor",
+  "surname": "Qobilov",
+  "lastname": "Ochilivich",
+  "passportSeriaNumber": "AB",
+  "password": "huihui",
+  "phone": "12111",
+  "role": "Nurse",
+  "job": "Hodim",
+  "region": {
+    "$oid": "64f980b564920b0e8932f09a"
+  },
+  "createdAt": "2023-08-07",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64f97f471986e646f88451f9"
+  },
+  "firstname": "iuhui",
+  "surname": "uihuihu",
+  "lastname": "uihuihihu",
+  "passportSeriaNumber": "huihihuihi",
+  "password": "uihuihuihui",
+  "phone": "972446972",
+  "role": "Nurse",
+  "job": "hiuhuihih",
+  "region": {
+    "$oid": "64f97ba8c00f5ae5a18d187d"
+  },
+  "createdAt": "2023-08-07",
+  "__v": 0
+}]
