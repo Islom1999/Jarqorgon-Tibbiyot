@@ -31,7 +31,7 @@ const getPatient = async (req, res) => {
 
     const filterData = filtering(status, region, week, month, year, dateStart, dateEnd);
 
-    const patients = await Patients.find() 
+    const patients = await Patients.find(filterData) 
       .sort({ createdAt: -1 })
       .skip(page * limit - limit)
       .limit(limit)
@@ -42,6 +42,8 @@ const getPatient = async (req, res) => {
         },
       })
       .lean();
+
+    // console.log(filterData)
 
     const regions = await Regions.find().populate("nurses").lean();
 

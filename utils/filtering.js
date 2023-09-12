@@ -20,15 +20,21 @@ const filtering = (status, region, week, month, year, dateStart, dateEnd) => {
       date_bosh  = new Date(dateStart);
       date_oxiri  = new Date(dateEnd);
     }else{
+      // const hozirgiVaqt = new Date(); 
+      // const yil = hozirgiVaqt.getFullYear();
+      // const weeks = Math.floor(( (+hozirgiVaqt - new Date(yil, 0, 1)) / 86400000 + 1) / 7) + 1; 
+     
+      // const formattedDate = `${yil}-W${weeks < 10 ? '0' + weeks : weeks}`;
+      // const [years, weekNumber] = formattedDate.split("-W");
+      
+      // date_bosh  = new Date(years, 0, 3 + (weekNumber - 1) * 7);
+      // date_oxiri  = new Date(years, 0, 3 + (weekNumber - 1) * 7 + 6 + 10);
+
       const hozirgiVaqt = new Date(); 
       const yil = hozirgiVaqt.getFullYear();
-      const weeks = Math.floor(( (+hozirgiVaqt - new Date(yil, 0, 1)) / 86400000 + 1) / 7) + 1; 
-     
-      const formattedDate = `${yil}-W${weeks < 10 ? '0' + weeks : weeks}`;
-      const [years, weekNumber] = formattedDate.split("-W");
-      
-      date_bosh  = new Date(years, 0, 3 + (weekNumber - 1) * 7);
-      date_oxiri  = new Date(years, 0, 3 + (weekNumber - 1) * 7 + 6 + 10);
+
+      date_bosh = new Date( yil, 0, 1 );
+      date_oxiri = new Date(`${+date_bosh.getFullYear() + 2}`, 0, 1); 
     }
 
     if(!status && !region) {
@@ -56,7 +62,6 @@ const filtering = (status, region, week, month, year, dateStart, dateEnd) => {
       }
     }
 
-    // console.log(filtering)
   
     return filtering
   }
