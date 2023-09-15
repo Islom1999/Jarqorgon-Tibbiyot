@@ -50,28 +50,35 @@
 
 <body>
 
-    {{>navbar}}
-    {{>aside}}
+    
 
-    <main id="main" class="main">
-
-        <div class="pagetitle">
-            <h1>{{title}} sahifasi</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                    <li class="breadcrumb-item active">{{title}}</li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
-
-        <section class="section dashboard">
+    {{#if islLoginPage}}
             {{{body}}}
-        </section>
+        {{else}}
+            {{>navbar}}
+            {{>aside}}
 
-    </main>
+            <main id="main" class="main">
 
-    {{>footer}}
+                <div class="pagetitle">
+                    <h1>{{title}} sahifasi</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                            <li class="breadcrumb-item active">{{title}}</li>
+                        </ol>
+                    </nav>
+                </div><!-- End Page Title -->
+
+                <section class="section dashboard">
+                    {{{body}}}
+                </section>
+
+            </main>
+
+            {{>footer}}
+    {{/if}}
+
 
     <!-- MDB -->
     <script

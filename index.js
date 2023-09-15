@@ -45,7 +45,9 @@ helpers(Handlebars)
 server.use(express.static( path.join(__dirname, 'public') ))
 
 // Router configuration
-server.use('/', require('./routers/pagesRouters'))
+server.use('/auth', require('./routers/authRouter'))
+server.use('/', require('./middleware/auth').authProtected, require('./routers/pagesRouters'))
+
 
 
 // SERVER LISTENING configuration

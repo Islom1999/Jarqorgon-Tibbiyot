@@ -20,36 +20,50 @@
                                     aria-label="Close"></button>
                             </div>
                             <form class="col-12 m-auto" class="forms-sample" action="/nurse/create/" method="post">
-                                <div class="modal-body">
-                                    <div class="mb-3">
+                                <div class="modal-body row">
+                                    <div class="mb-3 col-md-6">
                                         <label class="form-label">Ism</label>
                                         <input required type="text" class="form-control" placeholder="Ism kirit"
                                             name="firstname" value="{{firstname}}">
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-3 col-md-6">
                                         <label class="form-label">Familiya</label>
                                         <input required type="text" class="form-control" placeholder="Familiya kirit"
                                             name="surname" value="{{surname}}">
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-3 col-md-6">
                                         <label class="form-label">Otasini ismi</label>
                                         <input required type="text" class="form-control"
                                             placeholder="Otasini ismini kirit" name="lastname" value="{{lastname}}">
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-3 col-md-6">
                                         <label class="form-label">Passport seriya va raqami</label>
                                         <input required type="text" class="form-control" placeholder="AB 1234567"
                                             name="passportSeriaNumber" value="{{passportSeriaNumber}}">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Lavozimi</label>
+                                        <input required type="text" class="form-control" placeholder="Lavozim kirit"
+                                            name="job" value="{{job}}">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label">Statusi</label>
+                                        <select class="form-select" name="role">
+                                            {{#switch Role}}
+                                            {{#case 'starAdmin'}}
+                                            <option value="Nurse">Hamshira</option>
+                                            <option value="Admin">Admin</option>
+                                            {{/case}}
+                                            {{#default}}
+                                            <option value="Nurse">Hamshira</option>
+                                            {{/default}}
+                                            {{/switch}}
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Tel raqam</label>
                                         <input required type="text" class="form-control" placeholder="+998 xx xxx xx xx"
                                             name="phone" value="{{phone}}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Lavozimi</label>
-                                        <input required type="text" class="form-control" placeholder="Lavozim kirit"
-                                            name="job" value="{{job}}">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Paroli</label>
@@ -86,10 +100,30 @@
                     <h5 class="card-title text-center">Hamshiralar ro'yhati</h5>
                     <form action="">
                         <div class="row justify-content-center">
-                            <div class="col-md-6 col-sm-12">
-                                <div class="input-group mb-3">
-                                    <input type="search" class="form-control col-md-6 col-sm-12 col" name="search" value="{{search}}" placeholder="Izlash: ism, familiya, otasini ismi, tel raqami bo'yicha"/>
-                                    <button class="input-group-text btn btn-primary bg-primary">Izlash</button>
+                            <div class="col-md-8 col-sm-12">
+                                <div class="row">
+                                    <div class="mb-3 col-md-4 col-sm-12">
+                                        <select class="form-select" name="role">
+                                            <option value="">Hammasi</option>
+                                            {{#if_eq valueQuery.role 'Nurse'}}
+                                            <option value="Nurse" selected>Hamshiralar</option>
+                                            {{else}}
+                                            <option value="Nurse">Hamshiralar</option>
+                                            {{/if_eq}}
+
+                                            {{#if_eq valueQuery.role 'Admin'}}
+                                            <option value="Admin" selected>Adminlar</option>
+                                            {{else}}
+                                            <option value="Admin">Adminlar</option>
+                                            {{/if_eq}}
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-3 col-md col-sm-12">
+                                        <input type="search" class="form-control" name="search"
+                                            value="{{valueQuery.search}}"
+                                            placeholder="Izlash: ism, familiya, otasini ismi, tel raqami bo'yicha" />
+                                        <button class="input-group-text btn btn-primary bg-primary">Izlash</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -143,43 +177,71 @@
                                                     </div>
                                                     <form class="col-12 m-auto" class="forms-sample"
                                                         action="/nurse/update/{{_id}}" method="post">
-                                                        <div class="modal-body">
-                                                            <div class="mb-3">
+                                                        <div class="modal-body row">
+                                                            <div class="mb-3 col-md-6">
                                                                 <label class="form-label">Ism</label>
                                                                 <input required type="text" class="form-control"
                                                                     placeholder="Ism kirit" name="firstname"
                                                                     value="{{firstname}}">
                                                             </div>
-                                                            <div class="mb-3">
+                                                            <div class="mb-3 col-md-6">
                                                                 <label class="form-label">Familiya</label>
                                                                 <input required type="text" class="form-control"
                                                                     placeholder="Familiya kirit" name="surname"
                                                                     value="{{surname}}">
                                                             </div>
-                                                            <div class="mb-3">
+                                                            <div class="mb-3 col-md-6">
                                                                 <label class="form-label">Otasini ismi</label>
                                                                 <input required type="text" class="form-control"
                                                                     placeholder="Otasini ismini kirit" name="lastname"
                                                                     value="{{lastname}}">
                                                             </div>
-                                                            <div class="mb-3">
+                                                            <div class="mb-3 col-md-6">
                                                                 <label class="form-label">Passport seriya va
                                                                     raqami</label>
                                                                 <input required type="text" class="form-control"
                                                                     placeholder="AB 1234567" name="passportSeriaNumber"
                                                                     value="{{passportSeriaNumber}}">
                                                             </div>
+                                                            <div class="mb-3 col-md-6">
+                                                                <label class="form-label">Lavozimi</label>
+                                                                <input required type="text" class="form-control"
+                                                                    placeholder="Lavozim kirit" name="job"
+                                                                    value="{{job}}">
+                                                            </div>
+                                                            <div class="mb-3 col-md-6">
+                                                                <label class="form-label">Statusi</label>
+                                                                <select class="form-select" name="role">
+                                                                    {{#switch ../ Role}}
+                                                                        {{#case 'starAdmin'}}
+                                                                            {{#if_eq role 'Nurse'}}
+                                                                            <option value="Nurse" selected>Hamshiralar</option>
+                                                                            {{else}}
+                                                                            <option value="Nurse">Hamshiralar</option>
+                                                                            {{/if_eq}}
+
+                                                                            {{#if_eq role 'Admin'}}
+                                                                            <option value="Admin" selected>Adminlar</option>
+                                                                            {{else}}
+                                                                            <option value="Admin">Adminlar</option>
+                                                                            {{/if_eq}}
+                                                                        {{/case}}
+
+                                                                        {{#default}}
+                                                                            {{#if_eq role 'Nurse'}}
+                                                                            <option value="Nurse" selected>Hamshiralar</option>
+                                                                            {{else}}
+                                                                            <option value="Nurse">Hamshiralar</option>
+                                                                            {{/if_eq}}
+                                                                        {{/default}}
+                                                                    {{/switch}}
+                                                                </select>
+                                                            </div>
                                                             <div class="mb-3">
                                                                 <label class="form-label">Tel raqam</label>
                                                                 <input required type="text" class="form-control"
                                                                     placeholder="+998 xx xxx xx xx" name="phone"
                                                                     value="{{phone}}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Lavozimi</label>
-                                                                <input required type="text" class="form-control"
-                                                                    placeholder="Lavozim kirit" name="job"
-                                                                    value="{{job}}">
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label class="form-label">Paroli</label>
@@ -191,8 +253,16 @@
                                                                 <label class="form-label">Mahallasini tanla</label>
                                                                 <select class="selectpicker col-12" name="region"
                                                                     data-live-search="true">
-                                                                    <option selected value="{{region._id}}">{{region.title}}</option>
-                                                                    {{#each ../ regions}}
+                                                                    <option value="">Tanlanmagan</option>
+                                                                    <option selected value="{{region._id}}">
+                                                                        {{region.title}}</option>
+                                                                    {{#each ../regions}}
+                                                                    {{!-- {{#if_eq _id ../region._id}}
+                                                                    <option value="{{_id}}" selected>{{title}}</option>
+                                                                    {{else}}
+                                                                    <option value="{{_id}}">{{title}}</option>
+                                                                    {{/if_eq}} --}}
+
                                                                     <option value="{{_id}}">{{title}}</option>
                                                                     {{/each}}
                                                                 </select>

@@ -1,0 +1,18 @@
+
+{{#switch Role}}
+    {{#case "starAdmin"}}
+        <p>Star Admin content</p>
+    {{/case}}
+
+    {{#case "Admin"}}
+        <p>Admin content</p>
+    {{/case}}
+
+    {{#case "Nurse"}}
+        <p>Nurse content</p>
+    {{/case}}
+    
+    {{#default}}
+        <p>Default content</p>
+    {{/default}}
+{{/switch}}

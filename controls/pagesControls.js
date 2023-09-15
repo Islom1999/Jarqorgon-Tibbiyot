@@ -8,6 +8,8 @@ const getHome = async (req, res) => {
   try {
     res.render("dashboard", {
       title: "Dashboard",
+      Role: req.session.role,
+      User: req.session.user,
     });
   } catch (error) {
     console.log(error);
@@ -17,21 +19,35 @@ const getHome = async (req, res) => {
 const getPatient = async (req, res) => {
   try {
     const total = await Patients.countDocuments();
-    const limit = req.query.limit || 10;
+    const limit = req.query.limit || 20;
     const page = req.query.page || 1;
 
-    const region = req.query.region || undefined;
+    let region = req.query.region || undefined;
     const status = req.query.status || undefined;
 
     const week = req.query.week || undefined;
     const month = req.query.month || undefined;
     const year = req.query.year || undefined;
     const dateStart = req.query.dateStart || undefined;
-    const dateEnd = req.query.dateEnd || undefined;
+    const dateEnd = req.query.dateEnd || undefined; 
 
-    const filterData = filtering(status, region, week, month, year, dateStart, dateEnd);
+    // if (!region) {
+    //   if (req.session.role == "Nurse") {
+    //     region = req.session.user.region;
+    //   }
+    // }
 
-    const patients = await Patients.find(filterData) 
+    const filterData = filtering(
+      status,
+      region,
+      week,
+      month,
+      year,
+      dateStart,
+      dateEnd
+    );
+
+    const patients = await Patients.find(filterData)
       .sort({ createdAt: -1 })
       .skip(page * limit - limit)
       .limit(limit)
@@ -56,7 +72,9 @@ const getPatient = async (req, res) => {
         limit,
         pageCount: Math.ceil(total / limit),
       },
-    }); 
+      Role: req.session.role,
+      User: req.session.user,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -100,6 +118,8 @@ const getRegion = async (req, res) => {
         pageCount: Math.ceil(total / limit),
       },
       search: req.query.search,
+      Role: req.session.role,
+      User: req.session.user,
     });
   } catch (error) {
     console.log(error);
@@ -111,30 +131,84 @@ const getNurse = async (req, res) => {
     const total = await Users.countDocuments();
     const limit = req.query.limit || 20;
     const page = req.query.page || 1;
+    const role = req.query.role;
 
     let users;
 
     if (req.query.search) {
-      users = await Users.find({
-        $or: [
-          { lastname: new RegExp(req.query.search, "gi") },
-          { surname: new RegExp(req.query.search, "gi") },
-          { firstname: new RegExp(req.query.search, "gi") },
-          { phone: new RegExp(req.query.search, "gi") },
-        ],
-      })
-        .sort({ createdAt: -1 })
-        .skip(page * limit - limit)
-        .limit(limit)
-        .populate("region")
-        .lean();
+      if (role) {
+        users = await Users.find({
+          role,
+          $or: [
+            { lastname: new RegExp(req.query.search, "gi") },
+            { surname: new RegExp(req.query.search, "gi") },
+            { firstname: new RegExp(req.query.search, "gi") },
+            { phone: new RegExp(req.query.search, "gi") },
+          ],
+        })
+          .sort({ createdAt: -1 })
+          .skip(page * limit - limit)
+          .limit(limit)
+          .populate("region")
+          .lean();
+      } else {
+        if (req.session.role == "Admin") {
+          users = await Users.find({
+            role: "Nurse",
+            $or: [
+              { lastname: new RegExp(req.query.search, "gi") },
+              { surname: new RegExp(req.query.search, "gi") },
+              { firstname: new RegExp(req.query.search, "gi") },
+              { phone: new RegExp(req.query.search, "gi") },
+            ],
+          })
+            .sort({ createdAt: -1 })
+            .skip(page * limit - limit)
+            .limit(limit)
+            .populate("region")
+            .lean();
+        } else {
+          users = await Users.find({
+            $or: [
+              { lastname: new RegExp(req.query.search, "gi") },
+              { surname: new RegExp(req.query.search, "gi") },
+              { firstname: new RegExp(req.query.search, "gi") },
+              { phone: new RegExp(req.query.search, "gi") },
+            ],
+            role: {$ne: 'starAdmin'}
+          })
+            .sort({ createdAt: -1 })
+            .skip(page * limit - limit)
+            .limit(limit)
+            .populate("region")
+            .lean();
+        }
+      }
     } else {
-      users = await Users.find({ role: "Nurse" })
-        .sort({ createdAt: -1 })
-        .skip(page * limit - limit)
-        .limit(limit)
-        .populate("region")
-        .lean();
+      if (role) {
+        users = await Users.find({ role })
+          .sort({ createdAt: -1 })
+          .skip(page * limit - limit)
+          .limit(limit)
+          .populate("region")
+          .lean();
+      } else {
+        if (req.session.role == "Admin") {
+          users = await Users.find({ role: "Nurse"})
+          .sort({ createdAt: -1 })
+          .skip(page * limit - limit)
+          .limit(limit)
+          .populate("region")
+          .lean();
+        } else {
+          users = await Users.find({role: {$ne: 'starAdmin'}})
+            .sort({ createdAt: -1 })
+            .skip(page * limit - limit)
+            .limit(limit)
+            .populate("region")
+            .lean();
+        }
+      }
     }
 
     const regions = await Regions.find().lean();
@@ -148,7 +222,25 @@ const getNurse = async (req, res) => {
         limit,
         pageCount: Math.ceil(total / limit),
       },
-      search: req.query.search,
+      Role: req.session.role,
+      User: req.session.user,
+      valueQuery: req.query,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getProfile = async (req, res) => {
+  try {
+    const user = await Users.findById(req.session.user._id)
+      .populate("region")
+      .lean();
+    res.render("profile", {
+      title: "Profile",
+      Role: req.session.role,
+      User: req.session.user,
+      user,
     });
   } catch (error) {
     console.log(error);
@@ -160,4 +252,5 @@ module.exports = {
   getPatient,
   getRegion,
   getNurse,
+  getProfile,
 };

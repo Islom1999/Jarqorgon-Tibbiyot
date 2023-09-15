@@ -45,12 +45,43 @@ const Users = new mongoose.Schema(
         region: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Regions",
+            required: function() {
+                return this.role !== 'Nurse';
+            }
         },
         createdAt: {
             type: Date, 
-            default: Date.now(),
+            default: Date.now(), 
         },  
     }
 )
+
+Users.pre('save', function(next) {
+    if (this.role !== 'Nurse' && this.region) {
+        this.region = undefined; 
+    }
+    next();
+});
+
+// Users.pre('findByIdAndUpdate', function(next) {
+//     if (this._update && this._update.role !== 'Nurse') {
+//         if (this._update.region) {
+//             delete this._update.region;
+//         }
+//     }
+//     next();
+// });
+
+Users.pre('findOneAndUpdate', function(next) {
+    if (this._update && this._update.role !== 'Nurse') {
+        this._update.region = undefined;
+        delete this._update.region;
+    }
+    next();
+});
+
+
+
+
 
 module.exports = mongoose.model('Users', Users)

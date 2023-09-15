@@ -5,6 +5,7 @@ const {
     getPatient,
     getRegion,
     getNurse,
+    getProfile
 } = require('../controls/pagesControls')
 
 const {
@@ -46,6 +47,8 @@ router.get('/nurse', getNurse)
 router.post('/nurse/create', createNurse)
 router.post('/nurse/update/:id', updateNurse)
 router.post('/nurse/delete/:id', deleteNurse)
+
+router.get('/profile', getProfile)
 
 // export data
 router.post('/export/excel/region', exportExelRegion)

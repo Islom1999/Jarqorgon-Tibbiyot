@@ -1,49 +1,137 @@
 <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+  <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
+    {{#switch Role}}
+    {{#case "starAdmin"}}
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
 
-      <li class="nav-heading">Pages</li>
+    <li class="nav-heading">Pages</li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/patient">
-          <i class="bi bi-menu-button-wide"></i><span>Bemorlar</span>
-        </a>
-      </li><!-- End Components Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/patient">
+        <i class="bi bi-menu-button-wide"></i><span>Bemorlar</span>
+      </a>
+    </li><!-- End Components Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/nurse">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Hamshiralar</span>
-        </a>
-      </li><!-- End Tables Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/nurse">
+        <i class="bi bi-layout-text-window-reverse"></i><span>Hodimlar</span>
+      </a>
+    </li><!-- End Tables Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/region">
-          <i class="bi bi-journal-text"></i><span>Mahallalar</span>
-        </a>
-      </li><!-- End Forms Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/region">
+        <i class="bi bi-journal-text"></i><span>Mahallalar</span>
+      </a>
+    </li><!-- End Forms Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/profile">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+    <li class="nav-item">
+      <form action="/auth/logout" method="post" >
+        <button class="btn btn-danger">
           <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
+          <span>Logout</span>
+        </button>
+      </form>
+    </li><!-- End Login Page Nav -->
+    {{/case}}
 
-    </ul>
+    {{#case "Admin"}}
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
 
-  </aside><!-- End Sidebar-->
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/patient">
+        <i class="bi bi-menu-button-wide"></i><span>Bemorlar</span>
+      </a>
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/nurse">
+        <i class="bi bi-layout-text-window-reverse"></i><span>Hodimlar</span>
+      </a>
+    </li><!-- End Tables Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/region">
+        <i class="bi bi-journal-text"></i><span>Mahallalar</span>
+      </a>
+    </li><!-- End Forms Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/profile">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    <li class="nav-item">
+      <form action="/auth/logout" method="post">
+        <button class="btn btn-danger">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Logout</span>
+        </button>
+      </form>
+    </li><!-- End Login Page Nav -->
+    {{/case}}
+
+    {{#case "Nurse"}}
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/patient">
+        <i class="bi bi-menu-button-wide"></i><span>Bemorlar</span>
+      </a>
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/profile">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    <li class="nav-item">
+      <form action="/auth/logout" method="post">
+        <button class="btn btn-danger">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Logout</span>
+        </button>
+      </form>
+    </li><!-- End Login Page Nav -->
+    {{/case}}
+
+    {{#default}}
+    <p>Sizga tegishli role berilmagan</p>
+    {{/default}}
+    {{/switch}}
+
+  </ul>
+
+</aside><!-- End Sidebar-->

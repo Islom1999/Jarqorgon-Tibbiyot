@@ -4,10 +4,9 @@ const Regions = require("../models/region.model");
 
 const createNurse = async (req, res) => {
   try {
-    const role = "Nurse";
     const regionId = req.body.region;
 
-    const users = new Users({ ...req.body, role });
+    const users = new Users({ ...req.body });
     users.save();
 
     await Regions.findByIdAndUpdate(regionId, { $push: { nurses: users._id } });

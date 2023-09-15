@@ -36,21 +36,63 @@
                                         <input required type="text" class="form-control"
                                             placeholder="otasining ismini kirit" name="lastname" value="">
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Tel raqami</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text">+998</span>
-                                            <input required type="number" class="form-control"
-                                                placeholder="97 232 23 23" name="phone" value="{{phone}}">
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label class="form-label">Tel raqami</label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">+998</span>
+                                                <input required type="number" class="form-control"
+                                                    placeholder="97 232 23 23" name="phone" value="{{phone}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">Homila turi</label>
+                                            <select class="form-select" name="type">
+                                                <option value="Patronolog">Patronolog</option>
+                                                <option value="Fiziologik">Fiziologik</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Mahallasi</label>
+                                        <label class="form-label">Hududi</label>
                                         <select class="selectpicker col-12" name="address" data-live-search="true">
+                                            {{#switch Role}}
+                                            {{#case "starAdmin"}}
+                                            <option value="">mahalla tanlang</option>
                                             {{#each regions}}
                                             <option value="{{_id}}">{{title}}</option>
                                             {{/each}}
+                                            {{/case}}
+
+                                            {{#case "Admin"}}
+                                            <option value="">mahalla tanlang</option>
+                                            {{#each regions}}
+                                            <option value="{{_id}}">{{title}}</option>
+                                            {{/each}}
+                                            {{/case}}
+
+                                            {{#case "Nurse"}}
+                                            {{!-- <option value="">mahalla tanlang</option> --}}
+                                            {{#each regions}}
+                                            <option value="{{_id}}">{{title}}</option>
+                                            {{/each}}
+                                            {{/case}}
+
+                                            {{#default}}
+                                            <p>Default content</p>
+                                            {{/default}}
+                                            {{/switch}}
+
+                                            {{!-- {{#each regions}}
+                                            {{#if_eq ../User.region _id }}
+                                            {{/if_eq}}
+                                            {{/each}} --}}
                                         </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Manzili</label>
+                                        <input required type="text" class="form-control" placeholder="Manzil kiriting"
+                                            name="address_descr" value="{{address_descr}}">
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-6">
@@ -151,10 +193,37 @@
                                                     <label class="form-label">Bemorlar mahallasi</label>
                                                     <select class="selectpicker col-12" name="region"
                                                         data-live-search="true">
+                                                        {{#switch Role}}
+                                                        {{#case "starAdmin"}}
                                                         <option value="">mahalla tanlang</option>
                                                         {{#each regions}}
                                                         <option value="{{_id}}">{{title}}</option>
                                                         {{/each}}
+                                                        {{/case}}
+
+                                                        {{#case "Admin"}}
+                                                        <option value="">mahalla tanlang</option>
+                                                        {{#each regions}}
+                                                        <option value="{{_id}}">{{title}}</option>
+                                                        {{/each}}
+                                                        {{/case}}
+
+                                                        {{#case "Nurse"}}
+                                                        <option value="">mahalla tanlang</option>
+                                                        {{#each regions}}
+                                                        <option value="{{_id}}">{{title}}</option>
+                                                        {{/each}}
+                                                        {{/case}}
+
+                                                        {{#default}}
+                                                        <p>Default content</p>
+                                                        {{/default}}
+                                                        {{/switch}}
+
+                                                        {{!-- {{#each regions}}
+                                                        {{#if_eq ../User.region _id }}
+                                                        {{/if_eq}}
+                                                        {{/each}} --}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -264,16 +333,26 @@
                                     <th scope="col">Ism Familiya</th>
                                     <th scope="col">Passport</th>
                                     <th scope="col">Tugulgan sanasi</th>
+                                    <th scope="col">Hududi</th>
                                     <th scope="col">Manzili</th>
                                     <th scope="col">Royhatga olingan sana</th>
                                     <th scope="col">Tel raqami</th>
-                                    <th scope="col">Homila muddati</th>
                                     <th scope="col">Taxminiy tug'riq</th>
                                     <th scope="col">Oxirgi hayz</th>
+                                    <th scope="col">Homila turi</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Chaqaloqlar</th>
+                                    {{#switch Role}}
+                                    {{#case "starAdmin"}}
                                     <th scope="col">O'zgartirish</th>
                                     <th scope="col">O'chirissh</th>
+                                    {{/case}}
+                                    {{#case "Nurse"}}
+                                    <th scope="col">O'zgartirish</th>
+                                    <th scope="col">O'chirissh</th>
+                                    {{/case}}
+                                    {{/switch}}
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -292,11 +371,12 @@
                                             {{/each}}
                                         ">{{address.title}}</span>
                                     </td>
+                                    <td>{{address_descr}}</td>
                                     <td>{{formatDate createdAt}}</td>
                                     <td>{{phone}}</td>
-                                    <td>{{nimadur}} havta</td>
                                     <td>{{formatDate dateEnd}}</td>
                                     <td>{{formatDate datePeriod}}</td>
+                                    <td>{{type}}</td>
                                     <td>{{status}}</td>
                                     <td>
                                         {{#if children.boy.count}}
@@ -306,6 +386,9 @@
                                         <li>Qiz: {{children.girl.count}}ta</li>
                                         {{/if}}
                                     </td>
+
+                                    {{#switch ../ Role}}
+                                    {{#case "starAdmin"}}
                                     <td class="text-center">
                                         <div class="dropdown">
                                             <button class="btn btn-primary dropdown-toggle" type="button"
@@ -369,28 +452,44 @@
                                                                         placeholder="Bemor kirit" name="lastname"
                                                                         value="{{lastname}}">
                                                                 </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Tel raqami</label>
-                                                                    <div class="input-group mb-3">
-                                                                        <span class="input-group-text">+998</span>
-                                                                        <input required type="number"
-                                                                            class="form-control"
-                                                                            placeholder="97 232 23 23" name="phone"
-                                                                            value="{{phone}}">
+                                                                <div class="row mb-3">
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">Tel raqami</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <span class="input-group-text">+998</span>
+                                                                            <input required type="number"
+                                                                                class="form-control"
+                                                                                placeholder="97 232 23 23" name="phone"
+                                                                                value="{{phone}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">Homila turi</label>
+                                                                        <select class="form-select" name="type">
+                                                                            <option value="Patronolog">Patronolog
+                                                                            </option>
+                                                                            <option value="Fiziologik">Fiziologik
+                                                                            </option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label class="form-label">Mahallasi</label>
+                                                                    <label class="form-label">Hududi</label>
                                                                     <select class="selectpicker col-12" name="address"
                                                                         data-live-search="true">
                                                                         <option selected value="{{address._id}}">
                                                                             {{address.title}}</option>
-
                                                                         {{#each ../ regions}}
-                                                                        <option id="{{_id}}" value="{{_id}}">{{title}}
+                                                                        <option value="{{_id}}">{{title}}
                                                                         </option>
                                                                         {{/each}}
                                                                     </select>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Manzili</label>
+                                                                    <input required type="text" class="form-control"
+                                                                        placeholder="Manzil kiriting"
+                                                                        name="address_descr" value="{{address_descr}}">
                                                                 </div>
                                                                 <div class="row mb-3">
                                                                     <div class="col-6">
@@ -555,6 +654,304 @@
                                             </div>
                                         </div>
                                     </td>
+                                    {{/case}}
+
+                                    {{!-- {{#case "Admin"}}
+                                    <td></td>
+                                    <td></td>
+                                    {{/case}} --}}
+
+                                    {{#case "Nurse"}}
+                                    <td class="text-center">
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="ri-edit-box-fill"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu">
+                                                <li>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-update-{{_id}}">
+                                                        Malumotlarni o'zgartirish
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-update-week-{{_id}}">
+                                                        Homila vaqtini o'zgartirish
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-update-status-{{_id}}">
+                                                        Homila statusini o'zgartirish
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                            <!-- Modal -->
+                                            <div class="modal fade text-start" id="modal-update-{{_id}}" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5 text-center"
+                                                                id="exampleModalLabel">
+                                                                Bemor o'zgartirish</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form class="col-12 m-auto" class="forms-sample"
+                                                            action="/patient/update/{{_id}}" method="post">
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Bemor ismi</label>
+                                                                    <input required type="text" class="form-control"
+                                                                        placeholder="Bemor ismi" name="firstname"
+                                                                        value="{{firstname}}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Bemor familiyasi</label>
+                                                                    <input required type="text" class="form-control"
+                                                                        placeholder="Bemor kirit" name="surname"
+                                                                        value="{{surname}}">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Bemor otasining
+                                                                        ismi</label>
+                                                                    <input required type="text" class="form-control"
+                                                                        placeholder="Bemor kirit" name="lastname"
+                                                                        value="{{lastname}}">
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">Tel raqami</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <span class="input-group-text">+998</span>
+                                                                            <input required type="number"
+                                                                                class="form-control"
+                                                                                placeholder="97 232 23 23" name="phone"
+                                                                                value="{{phone}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">Homila turi</label>
+                                                                        <select class="form-select" name="type">
+                                                                            <option value="Patronolog">Patronolog
+                                                                            </option>
+                                                                            <option value="Fiziologik">Fiziologik
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Hududi</label>
+                                                                    <select class="selectpicker col-12" name="address"
+                                                                        data-live-search="true">
+                                                                        {{#switch ../ Role}}
+
+                                                                        {{#case 'starAdmin'}}
+                                                                        <option selected value="{{address._id}}">
+                                                                            {{address.title}}</option>
+
+
+                                                                        {{#each ../ regions}}
+                                                                        <option id="{{_id}}" value="{{_id}}">{{title}}
+                                                                        </option>
+                                                                        {{/each}}
+                                                                        {{/case}}
+
+                                                                        {{#case 'Nurse'}}
+                                                                        <option selected value="{{address._id}}">
+                                                                            {{address.title}}</option>
+                                                                        {{#each ../ regions}}
+                                                                        <option id="{{_id}}" value="{{_id}}">{{title}}
+                                                                        </option>
+                                                                        {{/each}}
+                                                                        {{/case}}
+
+                                                                        {{/switch}}
+                                                                    </select>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Manzili</label>
+                                                                    <input required type="text" class="form-control"
+                                                                        placeholder="Manzil kiriting"
+                                                                        name="address_descr" value="{{address_descr}}">
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">Passport
+                                                                            Seriyasi</label>
+                                                                        <input required type="text" class="form-control"
+                                                                            placeholder="AB" name="passportSeria"
+                                                                            value="{{passportSeria}}">
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">Passport
+                                                                            Raqami</label>
+                                                                        <input required type="number"
+                                                                            class="form-control" placeholder="1232323"
+                                                                            name="passportNumber"
+                                                                            value="{{passportNumber}}">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Tugulgan sanasi</label>
+                                                                    <input required type="date" class="form-control"
+                                                                        placeholder="Bemor kirit" name="birthDate"
+                                                                        value="{{formatDate birthDate}}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Qaytish</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Qo'shish</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade text-start" id="modal-update-status-{{_id}}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5 text-center"
+                                                                id="exampleModalLabel">
+                                                                Bemor o'zgartirish</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form class="col-12 m-auto" class="forms-sample"
+                                                            action="/patient/update/{{_id}}" method="post">
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Bemor holati</label>
+                                                                    <select class="form-select" name="status">
+                                                                        <option value="tugmagan">tugmagan</option>
+                                                                        <option value="tushib qolgan">tushib qolgan
+                                                                        </option>
+                                                                        <option value="abort qilingan">abort qilingan
+                                                                        </option>
+                                                                        <option value="tuggan">tuggan</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="mb-3 row">
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">O'gil farzand</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input class="form-control" type="number"
+                                                                                name="boy" placeholder="soni">
+                                                                            <span class="input-group-text">dona</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-6">
+                                                                        <label class="form-label">Qiz farzand</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input class="form-control" type="number"
+                                                                                name="girl" placeholder="soni">
+                                                                            <span class="input-group-text">dona</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Qaytish</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Qo'shish</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade text-start" id="modal-update-week-{{_id}}"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5 text-center"
+                                                                id="exampleModalLabel">
+                                                                Bemor o'zgartirish</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form class="col-12 m-auto" class="forms-sample"
+                                                            action="/patient/update/{{_id}}" method="post">
+                                                            <div class="modal-body">
+                                                                <div class="mb-3 col-6">
+                                                                    <label class="form-label">Homila muddati</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input required type="number"
+                                                                            class="form-control" name="weeks" value="">
+                                                                        <span class="input-group-text">havta</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Qaytish</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Qo'shish</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modal-delete-{{_id}}">
+                                            <i class="ri-delete-bin-fill"></i>
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade text-start" id="modal-delete-{{_id}}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">
+                                                            Bemor o'chirish</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <form class="col-12 m-auto" class="forms-sample"
+                                                        action="/patient/delete/{{_id}}" method="post">
+                                                        <div class="modal-body">
+                                                            <h5 class="text-primary">Ushbu Bemor malumotlarini
+                                                                o'chirsangiz keyin qayta tiklay olmaysiz</h5>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Qaytish</button>
+                                                            <button type="submit"
+                                                                class="btn btn-danger">O'chirish</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    {{/case}}
+
+                                    {{!-- {{#default}}
+                                    <td>sad</td>
+                                    <td>asd</td>
+                                    {{/default}} --}}
+                                    {{/switch}}
+
                                 </tr>
                                 {{/each}}
                                 {{else}}

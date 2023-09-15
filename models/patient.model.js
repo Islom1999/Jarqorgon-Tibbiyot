@@ -56,6 +56,15 @@ const Patients = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Regions",
     },
+    address_descr: {
+      type: "string",
+      required: false,
+    },
+    type: {
+      type: "string",
+      required: false,
+      enum:['Patronolog', 'Fiziologik']
+    },
     children: {
       boy: {
         count: {
