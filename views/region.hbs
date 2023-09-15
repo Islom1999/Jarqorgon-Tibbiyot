@@ -70,7 +70,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Mahalla nomi</th>
-                                    <th scope="col">Hamshiralar</th>
+                                    {{!-- <th scope="col">Hamshiralar</th> --}}
                                     <th scope="col">Royhatga olingan sana</th>
                                     <th scope="col" class="text-center">O'zgartirish</th>
                                     <th scope="col" class="text-center">O'chirish</th>
@@ -82,14 +82,14 @@
                                 <tr>
                                     <th scope="row">{{@index}}</th>
                                     <td>{{title}}</td>
-                                    <td>
+                                    {{!-- <td>
                                         <ol>
                                             {{#each nurses}}
                                             <li><a href="/nurse/#{{_id}}" class="text-primary">{{surname}}
                                                     {{firstname}}</a> - {{role}}</li>
                                             {{/each}}
                                         </ol>
-                                    </td>
+                                    </td> --}}
                                     <td>{{formatDate createdAt}}</td>
                                     <td class="text-center">
                                         <!-- Button trigger modal -->

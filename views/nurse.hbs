@@ -70,14 +70,14 @@
                                         <input required type="password" class="form-control" placeholder="Parol kirit"
                                             name="password" value="{{password}}">
                                     </div>
-                                    <div class="mb-3">
+                                    {{!-- <div class="mb-3">
                                         <label class="form-label">Mahallasini tanla</label>
                                         <select class="selectpicker col-12" name="region" data-live-search="true">
                                             {{#each regions}}
                                             <option value="{{_id}}">{{title}}</option>
                                             {{/each}}
                                         </select>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -134,7 +134,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Ism Familiya</th>
-                                    <th scope="col">Mahallasi</th>
+                                    {{!-- <th scope="col">Mahallasi</th> --}}
                                     <th scope="col">Passport</th>
                                     <th scope="col">Paroli</th>
                                     <th scope="col">Tel raqami</th>
@@ -151,7 +151,7 @@
                                 <tr id="{{_id}}">
                                     <th scope="row">{{@index}}</th>
                                     <td>{{surname}} {{firstname}} {{lastname}}</td>
-                                    <td><span class="text-primary">{{region.title}}</span></td>
+                                    {{!-- <td><span class="text-primary">{{region.title}}</span></td> --}}
                                     <td>{{passportSeriaNumber}}</td>
                                     <td>{{password}}</td>
                                     <td>{{phone}}</td>
@@ -249,7 +249,7 @@
                                                                     placeholder="Parol kirit" name="password"
                                                                     value="{{password}}">
                                                             </div>
-                                                            <div class="mb-3">
+                                                            {{!-- <div class="mb-3">
                                                                 <label class="form-label">Mahallasini tanla</label>
                                                                 <select class="selectpicker col-12" name="region"
                                                                     data-live-search="true">
@@ -257,16 +257,16 @@
                                                                     <option selected value="{{region._id}}">
                                                                         {{region.title}}</option>
                                                                     {{#each ../regions}}
-                                                                    {{!-- {{#if_eq _id ../region._id}}
+                                                                    {{#if_eq _id ../region._id}}
                                                                     <option value="{{_id}}" selected>{{title}}</option>
                                                                     {{else}}
                                                                     <option value="{{_id}}">{{title}}</option>
-                                                                    {{/if_eq}} --}}
+                                                                    {{/if_eq}}
 
                                                                     <option value="{{_id}}">{{title}}</option>
                                                                     {{/each}}
                                                                 </select>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"

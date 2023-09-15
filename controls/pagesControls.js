@@ -6,10 +6,22 @@ const { DateTime } = require("luxon");
 
 const getHome = async (req, res) => {
   try {
+    const bemorCount = await Patients.countDocuments({});
+    const tugganCount = await Patients.countDocuments({status: "tuggan"});
+    const tugmaganCount = await Patients.countDocuments({status: "tugmagan"});
+    const tushganCount = await Patients.countDocuments({status: "tushib qolgan"});
+    const abortCount = await Patients.countDocuments({status: "abort qilingan"});
+    const patronologCount = await Patients.countDocuments({type: "Patronolog"});
+    const fiziologikCount = await Patients.countDocuments({type: "Fiziologik"});
+    const xodimCount = await Users.countDocuments({role: "Nurse"});
+
+    const DataCounts = {bemorCount, tugganCount, tugmaganCount, tushganCount, abortCount, patronologCount, fiziologikCount, xodimCount}
+
     res.render("dashboard", {
       title: "Dashboard",
       Role: req.session.role,
       User: req.session.user,
+      DataCounts
     });
   } catch (error) {
     console.log(error);

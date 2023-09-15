@@ -45,9 +45,10 @@ const Users = new mongoose.Schema(
         region: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Regions",
-            required: function() {
-                return this.role !== 'Nurse';
-            }
+            required: false,
+            // required: function() {
+            //     return this.role !== 'Nurse';
+            // }
         },
         createdAt: {
             type: Date, 

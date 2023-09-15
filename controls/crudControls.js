@@ -9,7 +9,7 @@ const createNurse = async (req, res) => {
     const users = new Users({ ...req.body });
     users.save();
 
-    await Regions.findByIdAndUpdate(regionId, { $push: { nurses: users._id } });
+    // await Regions.findByIdAndUpdate(regionId, { $push: { nurses: users._id } });
 
     res.redirect("/nurse");
   } catch (error) {
@@ -18,15 +18,15 @@ const createNurse = async (req, res) => {
 };
 const updateNurse = async (req, res) => {
   try {
-    if (req.body.region) {
-      const nurseId = req.params.id;
-      const regionId = req.body.region;
-      await Regions.findOneAndUpdate(
-        { nurses: { $in: nurseId } },
-        { $pull: { nurses: nurseId } }
-      );
-      await Regions.findByIdAndUpdate(regionId, { $push: { nurses: nurseId } });
-    }
+    // if (req.body.region) {
+    //   const nurseId = req.params.id;
+    //   const regionId = req.body.region;
+    //   await Regions.findOneAndUpdate(
+    //     { nurses: { $in: nurseId } },
+    //     { $pull: { nurses: nurseId } }
+    //   );
+    //   await Regions.findByIdAndUpdate(regionId, { $push: { nurses: nurseId } });
+    // }
 
     await Users.findByIdAndUpdate(req.params.id, req.body);
     res.redirect("/nurse");
@@ -38,11 +38,11 @@ const deleteNurse = async (req, res) => {
   try {
     await Users.findByIdAndDelete(req.params.id);
 
-    const nurseId = req.params.id;
-    await Regions.findOneAndUpdate(
-      { nurses: { $in: nurseId } },
-      { $pull: { nurses: nurseId } }
-    );
+    // const nurseId = req.params.id;
+    // await Regions.findOneAndUpdate(
+    //   { nurses: { $in: nurseId } },
+    //   { $pull: { nurses: nurseId } }
+    // );
 
     res.redirect("/nurse");
   } catch (error) {

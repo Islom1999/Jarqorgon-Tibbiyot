@@ -1,18 +1,206 @@
+{{!-- {{#switch Role}}
+{{#case "starAdmin"}}
+<p>Star Admin content</p>
+{{/case}}
 
-{{#switch Role}}
-    {{#case "starAdmin"}}
-        <p>Star Admin content</p>
-    {{/case}}
+{{#case "Admin"}}
+<p>Admin content</p>
+{{/case}}
 
-    {{#case "Admin"}}
-        <p>Admin content</p>
-    {{/case}}
+{{#case "Nurse"}}
+<p>Nurse content</p>
+{{/case}}
 
-    {{#case "Nurse"}}
-        <p>Nurse content</p>
-    {{/case}}
-    
-    {{#default}}
-        <p>Default content</p>
-    {{/default}}
-{{/switch}}
+{{#default}}
+<p>Default content</p>
+{{/default}}
+{{/switch}} --}}
+
+<div class="row">
+
+    <div class="col-lg-12">
+        <div class="row">
+
+            <!-- Sales Card -->
+            <div class="col-xxl-3 col-md-6">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Bemorlar <span>| jami</span></h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-6">
+                                <h6>{{DataCounts.bemorCount}}</h6>
+                                <span class="text-muted small pt-2 ps-1">Nafarni tashkil etadi</span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- End Sales Card -->
+
+            <!-- Revenue Card -->
+            <div class="col-xxl-3 col-md-6">
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Tug'gan <span>| bemorlar</span></h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{DataCounts.tugganCount}}</h6>
+                                <span class="text-muted small pt-2 ps-1">Nafarni tashkil etadi</span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- End Revenue Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-3 col-xl-6">
+
+                <div class="card info-card customers-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Tug'magan <span>| bemorlar</span></h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{DataCounts.tugmaganCount}}</h6>
+                                <span class="text-muted small pt-2 ps-1">Nafarni tashkil etadi</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- End Customers Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-3 col-xl-6">
+
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Homilasi tushgan <span>| bemorlar</span></h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{DataCounts.tushganCount}}</h6>
+                                <span class="text-muted small pt-2 ps-1">Nafarni tashkil etadi</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- End Customers Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-3 col-xl-6">
+
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Abort qildirgan<span>| bemorlar</span></h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{DataCounts.abortCount}}</h6>
+                                <span class="text-muted small pt-2 ps-1">Nafarni tashkil etadi</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- End Customers Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-3 col-xl-6">
+
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Patronolog homilali<span>| bemorlar</span></h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{DataCounts.patronologCount}}</h6>
+                                <span class="text-muted small pt-2 ps-1">Nafarni tashkil etadi</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- End Customers Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-3 col-xl-6">
+
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Fiziologik homilali<span>| bemorlar</span></h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{DataCounts.fiziologikCount}}</h6>
+                                <span class="text-muted small pt-2 ps-1">Nafarni tashkil etadi</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- End Customers Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-3 col-xl-6">
+
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Hodimlar<span>| jami hamshiralar</span></h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{DataCounts.xodimCount}}</h6>
+                                <span class="text-muted small pt-2 ps-1">Nafarni tashkil etadi</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- End Customers Card -->
+
+        </div>
+    </div>
+</div>
